@@ -1,0 +1,1809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Rate Book">
+<meta name="description" content="Div's price lists: abrasives, power tools and spare parts, with discounts.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Div's Rate Book</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#16213a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: iPhone-first single column. Sticky navy bar (search + category rail), discount card, then collapsible subcategory lists. Edits happen in bottom sheets within thumb reach. */
+:root{
+  --bg:#eef0f4; --surface:#ffffff; --surface2:#f6f7fa; --ink:#121a2c; --muted:#5f6779; --faint:#8e95a5; --line:#e1e4eb;
+  --navy:#16213a; --navy2:#22304f; --gold:#c98a1c; --gold-ink:#1d1406; --gold-soft:#f7ecd6;
+  --ok:#1d8a4b; --soon:#a46f00; --no:#c63c33;
+  --scrim:rgba(10,14,25,.45);
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"Barlow",-apple-system,system-ui,sans-serif;
+  --r:16px; --tap:44px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b101c; --surface:#151c2e; --surface2:#1b2338; --ink:#ebeef5; --muted:#a0a8ba; --faint:#6f7890; --line:#253049;
+  --navy:#0a0f1b; --navy2:#18213a; --gold:#e5ab42; --gold-ink:#1d1406; --gold-soft:#3a2c12;
+  --ok:#5bd08a; --soon:#eabf58; --no:#f2786e; --scrim:rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b101c; --surface:#151c2e; --surface2:#1b2338; --ink:#ebeef5; --muted:#a0a8ba; --faint:#6f7890; --line:#253049;
+  --navy:#0a0f1b; --navy2:#18213a; --gold:#e5ab42; --gold-ink:#1d1406; --gold-soft:#3a2c12;
+  --ok:#5bd08a; --soon:#eabf58; --no:#f2786e; --scrim:rgba(0,0,0,.6); color-scheme:dark}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.35;overscroll-behavior-y:none}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:0 calc(32px + env(safe-area-inset-bottom,0px))}
+
+/* Sticky bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin-inline:-16px;background:var(--navy);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.bar-in{max-width:640px;margin:0 auto;padding:10px 16px 0}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px}
+.brand button{background:none;border:0;padding:0;text-align:left;color:#fff}
+.brand h1{font-family:var(--display);font-size:24px;letter-spacing:.02em;margin:0;line-height:1}
+.brand h1 span{color:var(--gold)}
+.brand .date{font-size:12px;color:#aab3c8;letter-spacing:.05em;text-transform:uppercase;text-align:right;line-height:1.2}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;margin-top:10px;padding:3px;border-radius:13px;background:rgba(255,255,255,.08)}
+.tab{height:38px;border:0;border-radius:10px;background:transparent;color:#c3cadb;font-weight:600;font-size:14.5px;letter-spacing:.01em;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;white-space:nowrap}
+.tab small{font-size:10.5px;font-weight:500;color:#8f99b0;margin-top:2px}
+.tab[aria-selected="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.tab[aria-selected="true"] small{color:#6b7488}
+.sbox{position:relative;margin-top:10px}
+.sbox svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:#aab3c8;fill:none;stroke-width:2}
+.search{width:100%;height:42px;border:0;border-radius:12px;padding:0 42px 0 38px;font:16px var(--body);background:rgba(255,255,255,.12);color:#fff;-webkit-appearance:none;appearance:none}
+.search::placeholder{color:#aab3c8}
+.search::-webkit-search-cancel-button{display:none}
+.search:focus{outline:none;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1.5px var(--gold)}
+.sclear{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;background:none;color:#aab3c8;font-size:20px;border-radius:50%}
+.rail{display:flex;gap:8px;overflow-x:auto;padding:10px 16px 12px;margin-inline:-16px;scrollbar-width:none;scroll-padding-inline:16px;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{display:none}
+.cat{flex:none;height:34px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#d6dbe7;font-weight:600;font-size:14px;white-space:nowrap}
+.cat[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+
+/* Discount card */
+.dcard{margin-top:14px;background:var(--surface);border-radius:var(--r);padding:14px 14px 12px;border:1px solid var(--line)}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dhead h2{margin:0;font-family:var(--display);font-size:20px;letter-spacing:.03em;text-transform:uppercase}
+.dhead p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.addbtn{flex:none;height:var(--tap);padding:0 16px;border:0;border-radius:12px;background:var(--gold);color:var(--gold-ink);font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.dchips{display:flex;gap:8px;overflow-x:auto;margin:12px -14px 0;padding:0 14px 2px;scrollbar-width:none}
+.dchips::-webkit-scrollbar{display:none}
+.dchip{flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-height:var(--tap);padding:7px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);text-align:left;max-width:220px}
+.dchip b{font-size:17px;color:var(--gold);font-weight:700}
+.dchip span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:196px}
+
+/* Toolbar */
+.tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;min-height:var(--tap)}
+.switch{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;cursor:pointer;user-select:none}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch .trk{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.switch .trk::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked + .trk{background:var(--ok)}
+.switch input:checked + .trk::after{transform:translateX(18px)}
+.switch input:focus-visible + .trk{outline:2px solid var(--gold);outline-offset:2px}
+.count{font-size:13px;color:var(--muted)}
+
+/* Overview tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
+.tile{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:104px;padding:14px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-align:left}
+.tile h3{margin:0;font-family:var(--display);font-size:21px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+.tile .meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.pill{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--gold-soft);color:var(--ink);white-space:nowrap}
+
+/* Category view */
+.ctitle{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:18px 2px 8px}
+.ctitle h2{margin:0;font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.ctitle button{border:0;background:none;color:var(--muted);font-size:14px;font-weight:600;min-height:var(--tap);padding:0 2px}
+details.sub{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin-top:10px;overflow:hidden}
+details.sub > summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:56px;padding:10px 12px 10px 14px;cursor:pointer}
+details.sub > summary::-webkit-details-marker{display:none}
+.chev{flex:none;width:20px;height:20px;stroke:var(--faint);fill:none;stroke-width:2.2;transition:transform .2s}
+details[open] > summary .chev{transform:rotate(90deg)}
+.stxt{flex:1;min-width:0}
+.stxt h3{margin:0;font-size:16px;font-weight:700;line-height:1.2}
+.stxt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.dbtn{flex:none;min-width:var(--tap);height:36px;padding:0 10px;border-radius:10px;border:1px dashed var(--line);background:transparent;color:var(--muted);font-size:13px;font-weight:700}
+.dbtn.on{border:0;background:var(--gold);color:var(--gold-ink)}
+.rows{border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:9px 14px;border:0;border-top:1px solid var(--line);background:none;text-align:left}
+.row:first-child{border-top:0}
+.row:active{background:var(--surface2)}
+.r-l{flex:1;min-width:0}
+.r-l .d{font-weight:600;font-size:16px;overflow-wrap:anywhere;line-height:1.25}
+.r-l .m{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-top:3px}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dot.Y{background:var(--ok)}.dot.S{background:var(--soon)}.dot.N{background:var(--no)}
+.st-Y{color:var(--ok)}.st-S{color:var(--soon)}.st-N{color:var(--no)}
+.r-r{flex:none;text-align:right}
+.r-r .p{font-weight:700;font-size:17px}
+.r-r s{display:block;font-size:12.5px;color:var(--faint)}
+.r-r .na{font-size:14px;color:var(--faint);font-weight:500}
+.empty{text-align:center;color:var(--muted);padding:48px 12px}
+.empty b{display:block;font-family:var(--display);font-size:22px;color:var(--ink);text-transform:uppercase;margin-bottom:4px}
+.foot{color:var(--faint);font-size:12px;margin-top:28px;text-align:center;line-height:1.5}
+
+/* Bottom sheet */
+.scrim{position:fixed;inset:0;z-index:40;background:var(--scrim);opacity:0;transition:opacity .2s}
+.scrim.show{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:88%;overflow-y:auto;background:var(--surface);border-radius:20px 20px 0 0;padding:8px 16px calc(16px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .26s cubic-bezier(.2,.8,.2,1);max-width:640px;margin:0 auto;overscroll-behavior:contain}
+.sheet.show{transform:none}
+.grab{width:38px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 10px}
+.sheet h2{margin:0;font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+.sheet .sub2{color:var(--muted);font-size:14px;margin:2px 0 14px}
+.fld{display:block;margin-top:12px}
+.fld > span{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sel{width:100%;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font:16px var(--body);padding:0 12px;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--faint) 50%),linear-gradient(135deg,var(--faint) 50%,transparent 50%);background-position:calc(100% - 20px) 21px,calc(100% - 14px) 21px;background-size:6px 6px;background-repeat:no-repeat}
+.pctrow{display:grid;grid-template-columns:56px 1fr 56px;gap:8px}
+.step{height:56px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);font-size:24px;font-weight:600}
+.pctin{position:relative}
+.pctin input{width:100%;height:56px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font:700 26px var(--body);text-align:center;padding:0 28px;-webkit-appearance:none;appearance:none;font-variant-numeric:tabular-nums}
+.pctin input:focus{outline:none;border-color:var(--gold)}
+.pctin i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;font-size:20px;color:var(--muted)}
+.quick{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:8px}
+.quick button{height:40px;border-radius:10px;border:1px solid var(--line);background:transparent;font-weight:600;font-size:15px}
+.quick button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold)}
+.preview{margin-top:14px;padding:12px;border-radius:12px;background:var(--surface2);font-size:14px;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.preview b{color:var(--ink)}
+.acts{display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-top:16px}
+.acts.one{grid-template-columns:1fr}
+.btn{height:52px;border-radius:14px;border:0;font-weight:700;font-size:16px}
+.btn.pri{background:var(--gold);color:var(--gold-ink)}
+.btn.sec{background:var(--surface2);color:var(--no);border:1px solid var(--line)}
+.btn.sec:disabled{color:var(--faint)}
+.kv{margin-top:6px;border-radius:12px;background:var(--surface2);padding:4px 14px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.kv div:first-child{border-top:0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600;text-align:right}
+.kv .big dd{font-size:22px;color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;transition:all .2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+@media (min-width:560px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"><div class="bar-in">
+    <div class="brand">
+      <button type="button" id="home" aria-label="Go to overview"><h1>Div's <span>Rate Book</span></h1></button>
+      <div class="date">Price list<br>21 Sep 2026</div>
+    </div>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Price lists"></div>
+    <div class="sbox">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" class="search" type="search" enterkeyhint="search" placeholder="Search size or item, e.g. 12X210" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+      <button type="button" id="qclear" class="sclear" aria-label="Clear search" hidden>×</button>
+    </div>
+    <nav id="rail" class="rail" aria-label="Categories"></nav>
+  </div></div>
+
+  <section class="dcard" aria-labelledby="dh">
+    <div class="dhead">
+      <div><h2 id="dh">Discount</h2><p id="dsum">Showing list prices</p></div>
+      <button type="button" class="addbtn" id="dadd"><span aria-hidden="true">+</span> Add</button>
+    </div>
+    <div id="dchips" class="dchips"></div>
+  </section>
+
+  <div class="tools">
+    <label class="switch"><input id="instock" type="checkbox"><span class="trk"></span>In stock only</label>
+    <span id="count" class="count num"></span>
+  </div>
+
+  <main id="list"></main>
+  <p class="foot">Rates in ₹ per piece, from the Div's Accessories &amp; Abrasive and Power Tools &amp; Spares stock lists dated 21/09/2026.<br>Tap any item for carton totals. Discounts are saved on this phone.</p>
+</div>
+
+<div id="scrim" class="scrim" hidden></div>
+
+<section id="dsheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="dst" hidden>
+  <div class="grab"></div>
+  <h2 id="dst">Set discount</h2>
+  <p class="sub2">Applies to every rate in the selected group.</p>
+  <label class="fld"><span>Category</span><select id="fcat" class="sel"></select></label>
+  <label class="fld"><span>Subcategory</span><select id="fsub" class="sel"></select></label>
+  <div class="fld"><span>Discount</span>
+    <div class="pctrow">
+      <button type="button" class="step" id="minus" aria-label="Decrease by 1">−</button>
+      <div class="pctin"><input id="fpct" type="text" inputmode="decimal" aria-label="Discount percent" placeholder="0"><i>%</i></div>
+      <button type="button" class="step" id="plus" aria-label="Increase by 1">+</button>
+    </div>
+    <div class="quick" id="quick"></div>
+  </div>
+  <div class="preview" id="fprev"></div>
+  <div class="acts" id="facts">
+    <button type="button" class="btn sec" id="fremove">Remove</button>
+    <button type="button" class="btn pri" id="fsave">Apply discount</button>
+  </div>
+</section>
+
+<section id="isheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="ist" hidden>
+  <div class="grab"></div>
+  <h2 id="ist"></h2>
+  <p class="sub2" id="isub"></p>
+  <dl class="kv" id="ikv"></dl>
+  <div class="acts one"><button type="button" class="btn pri" id="iedit">Change discount for this group</button></div>
+</section>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+const RAW = `
+### Abrasives
+## Chisels
+# Chisel Pointed
+14X250 (SDS)|100|81.14|Y
+17X280 (0810)|50|135.67|Y
+17X400 (0810)|50|208.73|Y
+18X280 (11-E)|50|144.88|S
+18X400 (11-E)|25|208.73|Y
+18X600 (11-E)|10|310.90|Y
+HILTI 22X400|25|833.34|N
+HILTI 22X500|25|1083.33|N
+HILTI 22X600|20|1250.01|N
+30X410 (PH-65)|10|448.87|Y
+30X600 (PH-65)|10|689.01|Y
+# Chisel Flat
+14X250X22|100|81.14|Y
+17X280X25|50|135.67|Y
+17X400X25|25|208.73|Y
+18X280X25|50|144.88|Y
+18X400X25|25|208.73|Y
+18X480X25|25|238.64|Y
+18X600X25|10|310.90|Y
+30X410X35|10|448.87|S
+30X480X35|10|517.05|Y
+30X600X35|10|689.01|Y
+# Chisel Xtra Wide
+14X250X50|50|167.66|S
+17X280X50|50|199.31|S
+17X400X50|25|276.36|S
+17X400X80|25|454.53|S
+18X280X50|50|203.30|Y
+18X400X50|25|281.89|N
+18X400X80|20|467.92|S
+18X600X80|20|572.73|Y
+# Chisel Economic Series ~ Div's Silver (point, flat & xtra wide)
+14X250|100|64.90|Y
+17X280|50|97.98|S
+17X400|50|159.52|S
+18X400|30|175.86|S
+18X600|20|265.26|S
+30X400|20|363.45|Y
+14X250X20|100|64.90|Y
+17X280X22|50|97.98|S
+17X400X22|50|159.52|Y
+18X400X25|30|175.86|S
+30X400X35|20|363.45|S
+17X400X75 Xtra Wide|30|363.66|S
+18X400X75 Xtra Wide|20|374.34|Y
+## Hammer Bits
+# Single Tip Hammer Drill Bits
+4X110|500|54.81|S
+5X110|500|52.48|Y
+5.5X110|500|54.81|Y
+5X160|500|60.11|S
+5.5X160|500|60.11|Y
+6X110|500|52.48|Y
+6.5X110|500|62.70|Y
+6X160|500|60.11|Y
+6.5X160|500|68.77|Y
+6X210|200|86.79|Y
+6X260|100|107.01|Y
+8X110|500|62.70|N
+8X160|500|70.46|Y
+8X210|200|93.40|Y
+8X260|100|112.19|N
+8X350|100|156.52|Y
+10X110|500|76.96|S
+10X160|200|82.15|Y
+10X210|200|107.01|Y
+10X260|100|127.87|Y
+10X310|100|143.54|Y
+10X350|100|159.21|Y
+10X450|50|224.30|N
+10X600|50|338.37|N
+12X110|200|86.79|N
+12X160|200|93.40|Y
+12X210|200|123.96|Y
+12X260|100|137.07|Y
+12X310|100|156.52|Y
+12X350|100|182.57|Y
+12X450|100|229.58|Y
+12X600|50|326.10|Y
+13X160|200|131.89|S
+13X210|200|159.21|Y
+14X160|200|136.30|Y
+14X210|200|150.01|Y
+14X260|100|181.38|Y
+14X310|100|216.61|Y
+14X350|100|224.30|Y
+14X400|100|258.75|Y
+14X450|50|289.69|Y
+14X600|200|409.57|Y
+15X160|200|156.52|Y
+15X210|200|182.76|Y
+16X160|200|156.52|Y
+16X210|200|191.74|S
+16X260|100|224.30|Y
+16X310|100|247.43|Y
+16X350|100|286.99|Y
+16X450|50|396.49|Y
+16X600|50|521.63|Y
+18X160|100|228.28|Y
+18X210|100|240.66|S
+18X260|100|281.69|S
+18X310|50|341.57|Y
+18X350|50|373.02|Y
+18X450|50|461.64|Y
+18X600|25|517.26|Y
+19X160|100|282.25|Y
+19X210|100|292.16|Y
+19X260|50|331.12|Y
+19X310|50|376.36|Y
+19X350|50|433.09|Y
+19X450|25|521.63|Y
+19X600|25|736.44|Y
+20X160|100|286.99|Y
+20X210|50|313.01|Y
+20X260|50|373.02|Y
+20X310|50|433.09|Y
+20X350|50|482.62|Y
+20X450|25|521.63|Y
+20X500|25|727.39|Y
+20X600|20|704.21|S
+22X160|50|356.47|Y
+22X210|50|433.09|Y
+22X260|50|446.09|Y
+22X310|50|503.01|S
+22X350|50|534.71|S
+22X450|50|704.21|Y
+22X600|25|1147.18|Y
+24X260|50|497.60|Y
+24X310|25|550.07|Y
+24X450|50|729.21|Y
+25X160|25|483.13|N
+25X210|20|573.96|Y
+25X260|50|599.89|S
+25X310|50|625.96|Y
+25X350|50|704.21|S
+25X450|25|769.37|Y
+25X600|25|938.97|Y
+26X210|50|705.68|Y
+26X260|50|770.81|Y
+26X310|25|890.23|Y
+28X310|25|968.05|Y
+28X450|50|1085.66|Y
+30X310|50|1139.94|Y
+30X450|25|1657.44|Y
+32X310|25|1214.13|Y
+32X450|25|1988.55|Y
+35X450|25|2486.14|Y
+38X310|25|2196.64|Y
+38X460|25|2692.43|Y
+# Cross Tip Hammer Bits
+5X110|500|-|N
+5.5X110|500|66.95|Y
+5X160|500|-|N
+6X110|500|-|N
+6.5X110|500|76.71|Y
+6X160|200|-|N
+6.5X160|100|-|N
+6X210|500|99.73|Y
+6X260|-|107.01|Y
+7X110|-|73.64|Y
+7X160|-|84.17|Y
+8X110|500|84.39|Y
+8X160|500|-|N
+8X210|500|109.33|Y
+8X260|200|132.35|Y
+10X160|100|-|N
+10X210|200|122.74|Y
+10X260|200|145.77|Y
+10X310|100|170.70|Y
+12X160|100|122.74|Y
+12X210|200|-|N
+12X260|200|159.20|Y
+12X310|100|189.89|Y
+12X350|100|-|N
+12X450|100|-|N
+14X160|50|-|N
+14X210|200|-|N
+14X260|200|232.07|Y
+14X310|100|264.69|Y
+14X350|100|289.62|Y
+14X450|100|-|N
+16X160|50|218.64|Y
+16X210|200|247.43|Y
+16X260|200|291.54|Y
+16X310|100|320.31|Y
+16X350|100|-|N
+16X450|100|-|N
+18X160|50|-|N
+18X210|200|-|N
+18X260|100|395.11|Y
+18X310|100|433.46|Y
+18X350|50|-|N
+18X450|50|-|N
+20X160|50|383.60|Y
+20X210|100|410.45|Y
+20X260|50|464.17|Y
+20X310|50|-|N
+20X350|50|-|N
+20X450|50|-|N
+25X210|25|581.15|Y
+25X260|50|629.09|Y
+25X310|50|-|N
+25X350|25|-|N
+25X450|25|-|N
+## Drill & Wood Bits
+# Core Drill Bits ~ Div's Pro
+25X450|40|892.51|Y
+51X450|24|1085.01|Y
+76X450|15|1596.01|N
+89X450|12|1869.01|Y
+102X450|12|2142.01|Y
+112X450|6|2352.01|N
+127X450|5|2667.01|Y
+152X450|5|3192.01|N
+168X450|4|3528.01|N
+180X450|2|3780.01|N
+200X450|2|4200.01|Y
+254X450|2|8014.99|Y
+# HSS Drill Bits ~ Div's Silver
+5/64|5000|5.13|Y
+7/64|5000|4.76|Y
+3/32|5000|5.90|Y
+1/8|5000|4.75|Y
+5/32|2500|7.61|Y
+3/16|2000|11.12|S
+1/4|1000|16.28|S
+9/32|1000|19.86|N
+9/64|1000|5.95|N
+5/16|1000|29.38|S
+3/8|500|41.29|S
+7/16|300|60.59|N
+1/2|250|97.64|S
+# Wood Flat Bits ~ Div's Silver
+10 MM|500|24.62|S
+12 MM|500|24.94|S
+14 MM|500|25.92|Y
+16 MM|500|27.21|S
+18 MM|500|27.86|S
+20 MM|500|28.83|S
+22 MM|500|30.45|S
+25 MM|500|32.07|S
+# Screw Driver Bits ~ Div's Gold
+PH 2-65 (S2)|500|29.19|Y
+PH 2-65 (S2) (+, -)|500|29.19|Y
+With Ring PH 2-65 (S2)|500|37.77|Y
+4" (100 MM) PH 2-65 (S2)|500|44.79|Y
+4" (100 MM) With Ring PH 2-65 (S2)|500|51.17|Y
+Magnetic Nut Runner 8X65 (Div's Eco)|500|18.25|S
+# Four Slot Wood Bits
+12 MM|500|89.43|Y
+14 MM|500|104.28|Y
+16 MM|500|119.13|Y
+20 MM|500|149.16|Y
+## Hole Saws
+# Concrete Hole Saw
+30MM|50|297.35|N
+35MM|50|323.17|N
+40MM|25|339.51|N
+50MM|25|438.54|Y
+65MM|25|504.87|Y
+80MM|25|680.20|Y
+Arbor (110MM)|25|181.69|Y
+Arbor (200MM)|25|250.74|Y
+Arbor (300MM)|25|330.87|Y
+Arbor (450MM)|25|436.51|Y
+# Ceramic & Masonry Bits
+Ceramic Bit 5 MM (Multifunctional)|500|-|N
+Ceramic Bit 6 MM (Multifunctional)|500|-|N
+Masonry Bit 1/4|1000|34.77|S
+# Diamond Core Bits
+6.5 MM|160|208.41|Y
+12 MM|160|252.28|Y
+19 MM|100|385.33|Y
+33 MM|80|640.33|Y
+37 MM|80|722.42|Y
+# Dry Wall Hole Saw
+63X370MM (with adaptor)|14|1060.40|Y
+# Metal Hole Saw
+12MM|200|120.23|Y
+16MM|200|144.27|Y
+20MM|200|180.34|Y
+22MM|250|198.38|Y
+25MM|200|225.43|Y
+32MM|100|288.55|S
+35MM|100|315.61|S
+38MM|100|342.67|S
+40MM|100|360.78|S
+50MM|100|450.99|Y
+57MM|100|517.99|Y
+63MM|100|568.23|Y
+# Wooden Hole Saw
+6 Pcs Set|100|101.99|S
+12 Pcs Set|40|227.30|Y
+16 Pcs Set|30|388.57|Y
+# Diamond Moulding Wheel
+3"X15MM|100|310.23|N
+3"X20MM|78|413.64|N
+3"X25MM|66|517.05|Y
+3"X30MM|54|620.46|Y
+3"X35MM|48|723.86|Y
+## Accessories
+# Drill Chuck ~ Div's Gold
+Drill Chuck 6MM|100|125.36|Y
+Drill Chuck 10MM (10X24)|100|125.36|Y
+Drill Chuck 13MM (13X20)|50|143.90|Y
+Drill Chuck 13MM (M-10)|50|156.98|Y
+Drill Chuck JT-6|30|337.93|Y
+Only Key 13MM|500|-|N
+# General Accessories
+Suction Cup (1 Claw)|36|366.86|S
+Suction Cup (2 Claw)|20|606.99|Y
+Suction Cup (3 Claw)|12|917.16|N
+Wool Pad 7"|320|151.52|Y
+Nylon Polish Brush 100 MM|100|194.67|S
+Bearing Puller 3" (75 MM)|60|318.19|S
+Bearing Puller 4" (100 MM)|40|397.73|S
+Bearing Puller 6" (150 MM)|20|517.05|Y
+Diamond Sharpening Stone 6"X2"|200|131.82|S
+SDS Adaptor (Imported)|500|27.30|Y
+Silicon Stone 6"X2"X1|60|122.89|N
+# Planner Blade ~ Pro
+1900B TCT|100|336.89|Y
+F-20 TCT|100|336.89|Y
+2 IN 1 TCT|100|336.89|Y
+90MM TCT|100|777.27|Y
+# Planner Blade ~ Gold
+1900B|200|110.93|Y
+F-20|200|110.93|Y
+# Planner Blade ~ Silver
+1900B|200|82.58|Y
+F-20|200|82.58|Y
+# Rubber Planner Belt ~ Div's Pro
+1900B|500|69.28|S
+F-20|500|69.28|S
+# Cup Brush ~ Div's Silver
+3" Twisted|100|66.83|N
+3" Crimped|100|63.48|Y
+4" Twisted|60|106.85|N
+4" Crimped|60|94.57|Y
+# Attachment ~ Div's Pro
+12" Chainsaw Attachment|10|682.70|Y
+16" Chainsaw Attachment|10|775.80|Y
+Drill Stand|10|-|N
+Grinder Stand|8|-|N
+# Rubber Hammer ~ Div's Gold
+40 MM (320 GM)|80|100.22|Y
+50 MM (400 GM)|70|119.81|Y
+60 MM (500 GM)|60|137.30|Y
+# Silicon Gun ~ Div's Pro
+Metal (500 GM)|40|229.41|S
+Metal (400 GM)|48|131.09|Y
+PVC (280 GM)|50|121.68|S
+# Chainsaw Chain ~ Div's Pro full chisel
+Pro Chain 16"|50|318.19|Y
+Pro Chain 18"|50|499.10|Y
+Pro Chain 22"|50|601.68|Y
+# Guide Bar ~ Div's Gold
+Guide Bar 16"|20|207.56|Y
+Guide Bar 18"|20|232.50|Y
+Guide Bar 22"|20|297.60|Y
+# Guide Bar & Chain ~ Div's Titanium / Gold
+Titanium Guide Bar 18"|20|320.02|S
+Titanium Guide Bar 22"|20|394.06|S
+Gold Chain 18"|50|372.38|S
+Gold Chain 22"|50|451.10|S
+# Hand Tools
+Snip (Tin) Cutter 10" · Industrial|60|354.90|S
+Snip (Tin) Cutter 10" · Silver|60|192.66|S
+Glass Cutter Pen Type · Pro|240|179.40|Y
+18" Hand Saw for Wood · Pro|60|243.36|S
+24" Hand Saw for Concrete · Pro|24|540.01|S
+Bolt Cutter 8" (200 MM) · Pro|60|162.24|Y
+6 Pcs Welding Magnet Set · Pro|20 SET|507.94|Y
+Hinged Bit 35MM (Auto Stop) · Plus|200|208.47|S
+Pruning Saw 270 MM · Eco|120|61.96|N
+Wire Twister (Steel Bar Hook) · Pro|80|-|N
+# Wood Chisel ~ Div's Gold
+12 MM|60|162.24|Y
+19 MM|60|172.38|Y
+25 MM|60|179.14|Y
+32 MM|60|199.42|Y
+38 MM|60|223.08|Y
+50 MM|60|317.72|Y
+# Hand Riveter
+10.5 Inch · Pro|200|317.72|Y
+17 Inch (Handle Type) · Pro|40|551.05|Y
+9.5 Inch · Silver|50|243.36|Y
+# Pipe Cutter
+High Quality (3-42MM) · Industrial|50|467.19|Y
+Pipe Cutter Blade (S02) · Industrial|410|136.05|Y
+Good Quality (3-42MM) · Pro|50|347.59|N
+Medium Quality (3-42MM) · Silver|50|290.94|Y
+Pipe Cutter Blade (A04) · Silver|500|90.67|Y
+# Flat Files T-12 ~ Div's Gold, card packing
+6"|100|114.50|Y
+8"|100|134.52|Y
+10"|50|185.38|Y
+12"|50|229.68|N
+# Flat Files T-10 ~ Div's Gold, plastic box
+6"|360|52.57|N
+8"|240|59.07|N
+10"|120|95.19|Y
+12"|60|137.82|Y
+# Half Round Files ~ Div's Gold, T-10 PVC
+10" Half Round|120|104.34|Y
+12" Half Round|60|152.91|Y
+# Multipurpose Chamfer Tool
+Portable Multipurpose Angle Grinder Plate|36|388.57|Y
+Chamfer Multipurpose Cutter|50|181.33|N
+# Router Bit Set
+12 Pcs PVC|12|916.66|Y
+12 Pcs Wooden (12B)|20|916.66|Y
+# Fiber Pad
+DU-10 Pad (Heavy)|200|53.33|S
+Fiber Pad|625|14.33|S
+# Velcro Pad
+Velcro Pad (M-10)|200|42.50|S
+Velcro Pad (M-14)|200|42.50|S
+Velcro Pad (M-10) Thin Pad|200|53.33|Y
+Velcro Pad (Hex Nut)|200|53.33|S
+## Cutting Wheels
+# Cut Off Wheel ~ Div's Industrial
+4"X1 Green (1 Nett)|800|16.83|Y
+4"X1 Green (2 Nett)|800|16.83|Y
+# Cut Off Wheel ~ Div's Plus (2 Nett)
+4"X1 Green|800|14.62|Y
+5"X1 Green|400|27.09|Y
+7"X1.5 Green|100|64.65|Y
+10"X1.5 Black|100|106.27|Y
+10"X1.5 Brown|100|106.27|N
+12"X2 Green|40|135.80|N
+14"X2.5 Green|40|170.94|Y
+14"X2.5 Black|40|170.94|N
+14"X2.5 Red|40|170.94|Y
+# Cut Off Wheel ~ Div's Plus (1 Nett)
+4"X1 (2 in 1) Red + Green|800|14.62|Y
+5"X1 Green|400|27.09|Y
+12"X2 Green|40|135.80|N
+14"X2.5 (2 in 1) Red + Green|40|170.94|S
+# Cut Off Wheel ~ Div's Gold (2 Nett)
+4"X1 Green|800|14.28|Y
+4"X1 Red|800|14.28|Y
+# Cut Off Wheel ~ Div's Silver (2 Nett)
+4"X1 Green|800|13.24|Y
+5"X1 Green|400|24.18|Y
+14"X2.5 Green|40|154.32|Y
+16"X3 Black/Red|25|264.15|N
+# Cut Off Wheel ~ Div's Eco (2 Nett)
+4"X1 Green|800|11.27|Y
+4"X1 Red|800|11.27|Y
+14"X2.5 Green|40|145.07|S
+## Grinding & DC
+# DC Wheel ~ Div's Plus
+4"X4 Brown|200|30.64|Y
+4"X6 Green|200|36.89|S
+5"X6 Green|100|57.73|Y
+7"X6 Green|50|120.30|Y
+# DC Wheel ~ Div's Silver
+4"X6 Green|200|32.25|Y
+# GC Wheel ~ Div's Plus
+#46|240|27.74|S
+#60|240|27.74|S
+#80|240|27.74|S
+#100|240|27.74|S
+#120|240|27.74|S
+#180|240|27.74|S
+#220|240|27.74|S
+#320|240|27.74|S
+# Felt Wheel
+4" 15MM White|200|51.36|N
+# Non Woven Wheel
+U5-4" 13MM Maroon|400|50.30|Y
+U5-4" 13MM Green|400|50.30|Y
+U8-4" 16MM Maroon (Div's Pro)|400|60.18|S
+# Stone Polishing Disc ~ Div's Plus
+4" #120-U8|400|64.82|Y
+4" #220-U8|400|64.82|Y
+4" #320-U8|400|64.82|Y
+4" #400-U8|400|64.82|S
+4" #600-U8|400|64.82|Y
+4" #800-U8|400|64.82|Y
+4" #1000-U8|400|64.82|Y
+## Flap & Sanding
+# Flap Disc ~ Div's Plus (Fiber)
+4" #36|200|35.22|Y
+4" #60|200|35.22|Y
+4" #80|200|35.22|Y
+4" #100|200|35.22|N
+4" #120|200|35.22|Y
+5" #60|200|52.49|Y
+5" #80|200|52.49|Y
+7" #60|100|118.59|Y
+7" #80|100|118.59|Y
+# Flap Disc ~ Flexible (Radial)
+Radial 4" #120|200|35.66|Y
+Radial 4" #220|200|35.66|N
+Radial 4" #320|200|35.66|Y
+# Flap Disc ~ Div's Pro (Metal)
+4" #60|200|40.92|Y
+4" #80|200|40.92|Y
+# Flap Disc ~ Div's Silver (PVC)
+4" #60|200|29.74|Y
+4" #80|200|29.74|Y
+4" #100|200|29.74|Y
+4" #120|200|29.74|N
+# Flap Disc ~ Div's Eco (PVC)
+4" #60|200|27.78|S
+4" #80|200|27.78|S
+4" #100|200|27.78|Y
+4" #120|200|27.78|Y
+# Flap Disc ~ Div's Silver (Metal)
+4" #60|200|30.70|Y
+4" #80|200|30.70|Y
+# Fiber Disc ~ Div's Plus
+5" #24|400|11.93|Y
+5" #36|800|11.93|S
+5" #60|800|11.93|S
+5" #80|800|11.93|S
+5" #100|800|11.93|S
+5" #120|800|11.93|S
+# Velcro Disc ~ Div's Plus
+5" #36|1200|4.57|Y
+5" #60|1200|4.57|Y
+5" #80|1200|4.57|Y
+5" #100|1200|4.57|S
+5" #120|1200|4.57|Y
+7" #40|1000|11.14|Y
+7" #60|1000|11.14|Y
+7" #80|1000|11.14|Y
+7" #120|1000|11.14|Y
+7" #150|1000|11.14|S
+7" #180|1000|11.14|S
+7" #220|1000|11.14|Y
+7" #320|1000|11.14|Y
+# WA Wheels ~ Div's Plus
+#36|240|30.32|Y
+#60|240|30.32|Y
+#80|240|30.32|Y
+## TCT Blades
+# TCT Blades ~ Div's Industrial
+4"X30|100|357.09|Y
+4"X40|200|414.39|Y
+5"X30|100|423.21|Y
+5"X40|100|480.50|Y
+# TCT Blades ~ Div's Pro
+4"X20 (Dual Side)|100|385.73|Y
+4"X30|100|290.96|Y
+4"X40|100|348.25|Y
+5"X30|100|357.09|Y
+5"X40|200|414.39|Y
+# Thin Kerf TCT ~ Div's Plus
+Wood 4"X12|200|220.45|S
+Wood 4"X30|200|236.11|N
+Wood 4"X40|200|270.63|S
+Wood 5"X12|200|270.14|S
+Wood 5"X30|200|281.14|S
+Wood 5"X40|200|309.70|S
+Wood 6"X40|50|429.67|S
+Wood 6"X60|50|577.19|S
+Wood 7"X40|50|504.31|S
+Wood 7"X60|50|632.57|S
+Wood 8"X40|50|668.27|S
+Wood 8"X60|50|767.35|S
+Wood 10"X40|25|990.90|S
+Wood 10"X60|25|1149.90|S
+Aluminium 10"X80|25|1301.96|S
+Aluminium 10"X100|25|1493.22|N
+Aluminium 10"X120|25|1700.62|N
+Wood 12"X40|10|1306.56|S
+Wood 12"X60|10|1492.53|S
+Wood 12"X80|10|1878.95|S
+Aluminium 12"X100|10|2184.52|N
+Aluminium 12"X120|10|2417.27|N
+Wood 14"X60|10|2008.50|S
+Wood 14"X80|10|2238.80|N
+Aluminium 14"X80|10|2320.50|N
+Aluminium 14"X100|10|2594.31|N
+Aluminium 14"X120|10|2875.84|N
+# Red Series TCT ~ Div's Plus
+Wood 4"X12|100|220.45|S
+Wood 4"X30|100|236.11|S
+Wood 4"X40|100|270.63|S
+Wood 5"X12|100|270.14|S
+Wood 5"X30|100|281.14|S
+Wood 5"X40|100|309.70|S
+Wood 6"X40|50|429.67|S
+Wood 7"X40|50|504.31|S
+Wood 7"X60|50|632.57|S
+Wood 8"X40|50|668.27|S
+Wood 8"X60|50|767.27|S
+Wood 10"X40|25|990.90|S
+Wood 10"X60|25|1149.90|S
+Aluminium 10"X100|25|1493.22|N
+Aluminium 10"X120|25|1700.62|N
+Wood 12"X40|10|1306.56|N
+Wood 12"X60|10|1492.53|S
+Aluminium 12"X100|10|2184.52|N
+Aluminium 12"X120|10|2417.27|N
+Wood 14"X60|10|2008.50|S
+Aluminium 14"X100|10|2594.31|S
+Aluminium 14"X120|10|2875.84|N
+# TCT Blades ~ Div's Gold
+6"X40T|50|252.47|Y
+8"X40T|50|326.12|Y
+12"X60T|20|936.27|Y
+12"X100T|20|1157.18|Y
+14"X60T|10|1209.78|Y
+14"X100T|10|1578.01|Y
+14"X120T|10|1735.79|Y
+# TCT Blades ~ Div's Silver
+4"X30|200|89.40|S
+4"X40|200|99.19|N
+5"X30|200|110.10|S
+5"X40|200|121.22|Y
+10"X40|20|-|N
+10"X60|20|551.05|S
+12"X40|25|-|N
+# Grass Cutter Blades ~ Div's Silver
+10"X40|50|242.46|Y
+10"X60|50|308.58|Y
+## Diamond Blades
+# Marble Blade ~ Div's Plus
+4" 10T SEG|200|97.59|Y
+4" 16T|200|97.59|Y
+4" RIM|200|97.59|Y
+4" Turbo|200|97.59|Y
+4" 115X15 MM SEG|200|127.50|Y
+4" Super Thin Turbo 8MM (Hot Pressed)|200|119.27|Y
+4" Super Thin Turbo 10MM (Hot Pressed)|200|119.27|N
+Ceramic 4" (U Slot)|200|109.08|Y
+4" Nano White (4 Cut Laser Type)|200|129.01|Y
+5" SEG (22.23MM Bore)|200|144.06|Y
+5" RIM|200|144.06|Y
+6" SEG|100|219.96|Y
+7" SEG|50|371.76|Y
+10" SEG|25|805.48|Y
+12" SEG|10|1212.12|Y
+14" SEG|10|1514.07|Y
+# Large Blades & Cup Wheels
+16" SEG|5|2720.60|Y
+Slab Cutter Blade 16"|20|2757.22|Y
+Ring Saw Blade 16" (394MM)|10|4422.13|Y
+Ring Saw Blade 16" (410MM)|10|4422.13|Y
+Ring Saw Blade Inside Teeth 16" (410MM)|10|4422.13|Y
+18" SEG|5|6515.15|Y
+3" Cup (RIM)|100|106.06|Y
+3" Cup (SEG)|100|106.06|N
+3" Cup (Turbo)|100|106.06|Y
+4" Cup (RIM)|50|151.52|Y
+4" Cup (SEG)|50|151.52|N
+# Marble Blade ~ Div's Eco
+4" SEG 9TX8MM (PP Pouch)|200|82.16|Y
+4" RIM (PP Pouch)|200|82.16|Y
+4" SEG 9TX8MM (Brown Paper)|200|82.16|Y
+4" RIM (Brown Paper)|200|82.16|Y
+# Marble Blade ~ Div's Gold
+4" SEG 10TX10MM|200|102.30|Y
+4" RIM 10MM|200|102.30|Y
+4" Thin Turbo 10MM|200|127.10|N
+5" SEG 9TX10MM|200|-|N
+# Diamond Saw Blades ~ Div's Pro
+4" SEG 110X8MMX1.8X9T · 108503|200|99.17|Y
+4" SEG 110X12MMX9T · 108504|200|119.30|Y
+4" SEG 115X13MMX8T · 108505|200|129.52|Y
+4" SEG 115X15MMX8T · 108506|200|156.51|Y
+4" Super Thin Turbo 105X10MMX1.2 · 108507|200|132.22|Y
+4" U-Slot Ceramic 110X10X1.4 · 108508|200|-|N
+4" Naino (4 Cut) Laser 105X1.4X1.0 · 108509|200|175.39|Y
+4" Zero Chipping SEG (Vitrified) 110X7.0X1.9X9T · 108510|200|137.62|Y
+4" Ultrathin RIM 110X5.0X20MM · 108512|200|132.22|Y
+4" SEG (Sandstone) 112X2.0X11 · 108513|200|131.72|Y
+4" Naino (3 Cut) Laser 110X8X1.4X20MM · 108515|200|179.28|Y
+4" Concrete 10MM 110X10X20MM · 108516|200|156.51|Y
+Wall Chaser Blade 133X4.5X20MM · 108517|200|222.62|Y
+4" SEG 114X8TX15X20MM · 108518|200|156.52|Y
+4" SEG 114X8TX15X20MM · 108519|200|156.52|Y
+4" SEG 114X8TX15X20MM · 108520|200|156.52|Y
+4" SEG 6T · 108521|200|132.22|Y
+4" Glass Blade (Green) · 108522|200|145.32|N
+4" CD Glass Blade · 108523|200|145.32|Y
+4.5" 114X13X20 SEG · 108524|200|156.52|Y
+4" Multipurpose 110X5MM · 108525|200|151.13|Y
+4" Multipurpose 110X10MM · 108526|200|167.04|N
+5" 125X15X9TX22.23 SEG · 108541|200|198.02|Y
+5" 125X16X9TX22.23 SEG · 108542|200|198.02|Y
+8" Grooving|50|538.33|Y
+14" SEG 350X25TX3.2X15X50MM|10|2007.62|Y
+# Grooving Blades ~ Don & Singham
+8" Grooving 200X12X14T · Don|50|416.67|Y
+8" Grooving 200X12X14T · Singham|50|416.67|Y
+### Power Tools
+## Div's Industrial
+# Grinders & Cutters ~ Industrial Series
+4" Angle Grinder 1100W · DI-AG 1100|8|2651.51|Y
+4" Angle Grinder 1350W Slim · DI-AG 1350|8|2935.53|Y
+4" Angle Grinder 1400W · DI-AG 1400|8|3016.25|Y
+4" Angle Grinder 1500W · DI-AG 1500|8|3234.85|Y
+Die Grinder · DI-DG 1000|8|3251.98|Y
+5" Angle Grinder 2000W · DI-AG5-2000|6|4948.41|Y
+5" Angle Grinder 2200W · DI-AG5-2200|4|5238.90|Y
+7" Angle Grinder · DI-AG7-3400|2|7982.82|Y
+4" Marble Cutter 1900W · DI-4SB-1900|4|3775.80|Y
+4" Marble Cutter 2000W · DI-SB 2000|4|4034.76|Y
+5" Marble Cutter · DI-CM5 2000|4|4794.28|Y
+# Drills & Hammers ~ Industrial Series
+10MM Drill Machine 1000W · DI-10 D|10|2537.14|Y
+13MM Drill Machine 1200W · DI-13 IM|10|2908.20|Y
+Demolition Breaker 24KG 2400W · DI-24000|1|-|N
+Magnetic Drill Machine · DI-MDM 2-50|1|26218.50|Y
+Magnetic Drill Machine (New) · DI-MD 50|1|29272.28|Y
+Magnetic Drill Machine (New) · DI-MD 70|1|36788.57|Y
+Rotary Hammer 26MM Anti Vibration (with acc.) · DI-11|1|5536.60|Y
+Rotary Hammer 26MM · DI-RH30|5|5342.69|Y
+Diamond Core Drill · DI-DCD 235|1|-|N
+Diamond Core Drill · DI-DCD 260|1|-|N
+# Saws & Others ~ Industrial Series
+Ring Saw Machine · DI-RSM16|1|40909.00|Y
+Dry Wall Sander · DI-DS 180|4|6328.58|Y
+Miter Saw 10" · DI-MS 255|1|14017.71|Y
+Trimmer (New) · DI-TM-1000|8|3357.01|Y
+## Div's Pro
+# Drill Machines ~ Div's Pro
+Electric Drill 10MM L/R 500W (DPT 10LR New) · DPT 5002|10|1409.58|S
+13MM Impact Drill L/R 850W · DPT 5006|10|2073.28|Y
+Cordless Drill 12V with acc. · DPT 5010|10|2707.12|Y
+Cordless Drill 21V with acc. · DPT 5011|5|3784.80|Y
+# Marble & Wood Cutters ~ Div's Pro
+4" CM4SA Marble Cutter (New) · DPT 110R HY|4|3370.06|S
+4" CM4SA Marble Cutter (New) · DPT 110C HY|4|3475.95|S
+5" Marble Cutter · DPT 125 MC / DPT 5025|4|3957.69|N
+5" Wood Cutter · DPT 125 WC / DPT 5026|4|3957.69|N
+6" Marble Cutter · DPT 150MC|4|4244.25|N
+16" Slab Cutter · DPT 5030|1|19913.22|N
+# Angle Grinders ~ Div's Pro
+4" Angle Grinder PDA-100M 1250W · DPT 100M|8|2147.72|Y
+4" Angle Grinder 801 New 1200W · DPT801NHY|8|2527.98|S
+# Chop Saws ~ Div's Pro
+Chopsaw LG355 (Big Guard) · DPT LG355B HY|1|10575.32|S
+Chopsaw Ken Type 7614NB 3000W · DPT 7614NB|1|9469.70|Y
+Chopsaw CC-14STD 2200W · DPT CC14 HY|1|9469.70|Y
+# Rotary & Demolition Hammers ~ Div's Pro
+Rotary Hammer 20MM (New) · DPT 5061|5|3239.62|Y
+Rotary Hammer 22MM 3 Mode · DPT 5062|5|3696.41|Y
+Rotary Hammer 26MM · DPT 5063|5|3976.39|Y
+Rotary Hammer 26MM (28-30) New · DPT 5064|5|4777.92|Y
+Rotary Hammer 26MM (Heavy) · DPT 5065|5|4777.92|Y
+Demolition Hammer 5KG 0810B (Bolt Type) · DPT 5071|2|7373.23|S
+Demolition Hammer 5KG MT860 · DPT 5072|2|7373.23|S
+Demolition Hammer DH7000 7KG · DPT DH7000|2|8984.18|S
+Demolition Hammer DH-7 7KG · DPT DH-7|2|7287.32|Y
+Demolition Hammer (Max) DH8000 8KG · DPT DH8000|2|9776.11|Y
+Demolition Hammer 11E · DPT 11000|1|16286.78|Y
+Demolition Breaker (Max) 12KG · DPT DH12000|1|-|N
+# Saws, Planers & Vibrators ~ Div's Pro
+22" Electric Chainsaw 550MM · DPT ECS22"|2|7964.92|Y
+Gasoline 22" Chainsaw 62CC (Metal) · DPT MC600|2|9072.90|Y
+Planner (Sencan Type) · DPT 82 EP|4|4334.09|S
+Jigsaw 65MM · DPT 65J|5|3872.50|S
+Jigsaw 85MM · DPT 85J|5|4499.90|Y
+Vibrator 50MM without Shaft (PVC) · DPT 50VIB|10|2850.15|Y
+Vibrator 50MM without Shaft (Metal) · DPT 5122|10|2905.20|Y
+Handy Vibrator without Shaft (Heavy PVC) · DPT 5124|10|3052.06|Y
+Vibrator Stand Type with 4 Mtr Shaft · DPT 200VIB|2|13594.88|Y
+# Sanders, Compressors & Pumps ~ Div's Pro
+Plaster Wet Sander · DPT 200VIB|2|5652.73|S
+Dry Wall Sander · DPT 5130|4|5432.33|Y
+Air Compressor 30 Ltr Oil Free (Copper) · DPT 3039|1|10984.85|Y
+Air Compressor 50 Ltr Oil Free (Copper) · DPT 3037|1|13996.74|Y
+Agriculture / Sprayer Pump 70 · DPT 5153|1|6025.70|Y
+Agriculture / Sprayer Pump 100 · DPT 5157|1|9646.42|Y
+## Div's Gold
+# Grinders & Marble Cutters ~ Div's Gold
+4" Angle Grinder 801 · DG 101|8|1780.95|Y
+4" Angle Grinder · DG 102|8|1858.80|S
+4" Angle Grinder (9913) · DG 103|8|1780.95|Y
+4" Angle Grinder (801) · DG 803-1|8|1555.20|Y
+4" Angle Grinder (803) · DG 803|8|1555.20|Y
+4" CM4SA Marble Cutter · DG 111 SA|4|-|N
+4" CM4SA Marble Cutter New (HY) · DG 113|4|-|N
+4" CM4SB Marble Cutter · DG 114 SB|4|-|N
+4" CM4SB Marble Cutter New (HY) · DG 115|4|2597.10|Y
+Marble Cutter CM5 5" New (HY) 2000W · DG 116|4|3073.21|Y
+# Hammers & Drills ~ Div's Gold
+Demolition Hammer 11E · DG 128|1|14870.37|N
+Rotary Hammer 20MM · DG 151|5|2478.40|N
+Rotary Hammer 20MM New · DG 179|5|2571.33|N
+Rotary Hammer 26MM · DG 152|5|3407.80|N
+Rotary Hammer 26MM Metal Head · DG 153|5|3655.63|N
+Rotary Hammer 26MM · DG 182|5|3748.57|N
+Cordless Drill 12V with acc. · DG 132|10|1932.52|N
+13MM Tool Kit · DG 13IM KIT|5|2675.36|Y
+Electric Mixture · DG 137|6|2741.73|Y
+# Saws & Cutters ~ Div's Gold
+Mitersaw 10" (1040 Type) · DG 141|1|11865.32|S
+Mitersaw 10" (Belt Type) · DG 142|1|9293.98|S
+16" Electric Chainsaw 5016 · DG 144|2|4770.91|N
+Gasoline Chainsaw 22" 62CC · DG 6200|2|7501.05|Y
+Jigsaw 70MM · DG 161|10|2311.86|N
+Tile Cutter Manual 24" · DG184|3|3854.18|S
+Tile Cutter Manual 48" · DG 186|2|6387.50|S
+# Cleaning & Others ~ Div's Gold
+Vacuum Cleaner 20 Ltr · DG 20VC|1|4189.14|S
+Vacuum Cleaner 25 Ltr · DG 25VC|1|4545.45|S
+Vacuum Cleaner 35 Ltr · DG 35VC|1|6480.01|Y
+Heat Gun · DG 163|10|1161.28|Y
+Compressor 30 Ltr Oil · RR 30 AC|1|10606.06|Y
+Leaf Collector 21V · DG 188|8|7399.95|S
+### Spare Parts
+## Armatures
+# Pro Armature ~ Bosch type
+13RE|30|500.01|Y
+2-24|30|523.26|Y
+GBM13-2|30|523.26|Y
+GST85PB|30|641.88|Y
+14-125 CIE|30|719.48|Y
+GKS7000|20|784.88|Y
+GDC-34|20|828.48|Y
+GKS190 New 7T|20|828.48|Y
+GSH388 (GBH5X)|20|1264.54|Y
+24-180|12|1547.76|Y
+GBH7-46|12|1526.46|Y
+16-30|12|2180.24|Y
+# Pro Armature ~ Dewalt type
+D25013K|30|545.06|Y
+D25123|30|545.06|Y
+DW28135|30|675.87|Y
+DW28410|12|1547.96|Y
+DW28700|12|1569.77|Y
+# Pro Armature ~ Hitachi type
+6.5MM|30|458.34|Y
+EB-20|30|490.56|Y
+G10SS|30|523.26|Y
+DH24PB3|30|545.06|Y
+C7|20|719.48|Y
+CC14STA|12|1601.05|Y
+PH65A (Hand Made)|12|1849.13|Y
+HU-14|12|1541.67|Y
+# Pro Armature ~ Makita type
+MT90|30|490.56|Y
+MT954|30|512.36|Y
+9553|30|490.56|Y
+MT811|30|523.26|Y
+N1900B|30|523.26|Y
+MT958|20|577.77|Y
+9035|36|599.77|Y
+3703|30|755.43|Y
+MT410|20|700.01|Y
+6013BR/0813|30|700.01|Y
+5806B|20|763.09|Y
+HM1202C|12|1504.36|Y
+5016B|12|1547.97|Y
+MT900|12|1547.97|Y
+HM1306|12|1583.33|Y
+4107|12|1547.97|Y
+# Pro Armature ~ KPT & Skil type
+KPT5502|50|685.61|Y
+9620-Skil|30|545.07|Y
+9816/9817-Skil|20|741.28|Y
+# Pro Armature ~ Others
+KR554RE|30|523.26|Y
+AEG6-100|30|545.07|Y
+HP1321R|30|545.07|Y
+FF-03-26|20|675.88|Y
+CTC 125|20|697.68|Y
+FF-160|20|719.48|Y
+SIS-FF-125B|20|784.89|Y
+CM5 WC/MC|20|833.34|Y
+90MM Core Drill|20|1250.01|Y
+4" Angle Grinder DPT 900W|50|617.99|Y
+4" Angle Grinder DPT 950W|50|643.75|Y
+4" Angle Grinder DPT 1029|50|587.89|N
+22" Electric Chain Saw|20|2234.39|N
+16" Slab Cutter|10|3840.17|Y
+# Gold Armature ~ Div's Gold
+6-100|50|334.33|Y
+2310|50|324.62|S
+801|50|378.88|S
+Screw Driver|50|359.88|S
+2-20|50|417.08|S
+2-26|50|417.08|S
+6.5MM|30|448.78|S
+PD100D|50|-|N
+EBC40|50|415.09|S
+13RE|50|438.93|S
+1900B|50|423.04|S
+G10SS|50|417.08|Y
+G10SS2|50|417.08|S
+MT90|50|-|N
+PD100M|50|-|N
+DU10|50|460.78|S
+Die Grinder (02-25)|30|482.30|S
+2510|50|462.76|S
+CM4SA|30|552.14|S
+MT60|50|-|N
+9523NB|50|500.01|Y
+3703|50|500.50|S
+CM4SB|30|579.94|S
+35-1|30|516.39|S
+Hangbo 26MM|50|500.01|Y
+03-26|30|613.70|S
+0810|30|599.80|S
+FF-160|30|586.87|S
+MT410|30|586.56|S
+C7|30|675.27|S
+CM6|30|641.51|S
+G15SA2|30|642.98|S
+SIS-FF-125B|30|730.88|S
+CTC125|30|646.32|Y
+CM5 (New)|30|665.34|S
+CM5 (Old)|30|665.34|S
+GDC120|30|726.30|Y
+GEX-150|30|626.15|Y
+CM5 (Pro)|30|-|N
+16" Chainsaw (China) 4016 Small|18|1098.24|Y
+GBH388|12|953.33|S
+4016|12|1188.40|S
+PH65A|12|1232.08|Y
+5016|12|1219.56|S
+GCO200|12|1285.54|S
+355D|12|-|N
+4107|12|1222.92|S
+DW871|12|1459.78|S
+GCO2000|12|1285.54|S
+LG355|12|1285.54|S
+PH65SC|12|1316.40|S
+28700|12|1475.67|S
+28710|12|1351.23|S
+28720|12|1327.70|S
+28730|12|1523.34|S
+CC14SF|12|1497.52|S
+CC14STD|12|1351.23|S
+G18SE2|12|1400.20|S
+G18SH2|12|1400.20|N
+KPT5791|12|1372.40|S
+CC14STA|12|1481.63|S
+7614NB|12|1523.34|S
+11E|12|1759.68|S
+300-A (Stand Vibrator)|18|-|N
+3612 BR Router|18|1590.87|S
+China Chopsaw (8 Teeth)|24|1433.23|Y
+## Stators
+# Pro Stator
+6-100 (Glue)|40|392.45|Y
+28710|18|1377.26|Y
+PH65SC|18|1264.54|Y
+CC14SF|18|1249.99|Y
+2-20|40|436.05|Y
+4" Angle Grinder DPT 900W|40|514.99|Y
+4" Angle Grinder DPT 1000W|40|514.99|Y
+4" Angle Grinder DPT 1029|40|514.99|N
+# Gold Stator ~ Div's Gold
+6-100|40|314.71|Y
+2-20|40|353.53|S
+2-26|40|353.53|S
+801|40|367.43|S
+CM4SA|30|464.75|S
+CM4SB|30|-|N
+G15SA2|30|579.94|S
+2510|40|-|N
+0810|30|-|N
+C7|32|-|N
+CM5 (New)|30|592.67|S
+CM5 (Pro)|30|668.43|S
+PH65A|12|901.69|S
+DW871|12|1383.30|N
+PD100M|50|415.09|S
+DU10|50|-|N
+LG355|12|1168.23|S
+GCO200|12|1213.14|S
+7614NB|12|1374.38|S
+PH65SC|12|-|N
+28730|12|-|N
+5016|12|1146.28|Y
+## Hammer Spares
+# 2-20 Spares
+Bearing 0614 (3 parts)|5000|14.18|Y
+Black Head (Gear Housing)|100|91.39|Y
+Carbon Holder|5000|17.34|Y
+Complete Head (Fitted) for 20MM|20|1129.17|Y
+Flange with O-Ring|160|170.50|Y
+Gear Housing Set with Accessories|80|190.91|Y
+Body (Motor Housing)|60|149.58|Y
+Hammer Set|360|54.97|Y
+Knob with O-Ring|800|23.63|Y
+Needle Bearing HK0608|10000|9.18|N
+Nose Cap (7 pcs)|400|36.60|Y
+O-Ring|4800|14.34|Y
+Piston|500|66.19|Y
+Ratchet Sleeve Set (Tool Holder)|50|318.19|Y
+Side Handle|100|78.78|Y
+Roller Bearing 3012|1000|39.77|Y
+Roller Bearing + Katora|500|63.64|Y
+Small Gear|800|32.87|Y
+Taper Bearing (Swash)|400|101.82|Y
+Toothed Shaft|500|46.14|Y
+Short Wire|LOOSE|6.93|Y
+Long Wire|LOOSE|6.93|N
+# 2-26 Spares
+Bearing 699|2000|23.77|N
+Bearing Retainer|2400|13.11|Y
+Black Head (Gear Housing)|80|135.23|Y
+Brush Holder Complete Set|300|127.27|Y
+Chand Patti|2000|14.32|Y
+Brush Plate|1000|15.90|Y
+Complete (Fitted) Gear Housing|18|1359.90|Y
+Flange with O-Ring|120|188.98|Y
+Body (Motor Housing)|50|220.51|Y
+Gear Sleeve 33 T H|600|52.50|Y
+Hammer Set (7 parts)|250|95.45|Y
+Iron Plate|10000|11.93|Y
+Iron U Plate|2000|15.11|Y
+Knob with O-Ring|1000|24.65|Y
+Nose Cap Set (9 pcs)|350|47.73|Y
+O-Ring|2500|14.33|Y
+Piston|500|70.01|Y
+Ratchet Sleeve Complete|50|413.64|Y
+Roller Bearing + Katora|500|71.59|Y
+Roller / Needle Bearing 3012|1000|39.77|Y
+Small Tool Holder Set|200|119.70|Y
+Swash Bearing H0908 with K15|200|175.01|Y
+Switching Element|1000|23.07|N
+Switching Element with Bearing 699|1500|46.14|Y
+Toothed Shaft|500|50.91|Y
+Side Handle|80|78.78|Y
+# 2-28 Spares
+Nose Cap Set (9 pcs)|LOOSE|72.60|Y
+Swash Bearing + HK0908|LOOSE|351.60|Y
+Hammer Set (7 parts)|LOOSE|159.70|Y
+Swash Bearing Assembly|LOOSE|766.67|Y
+Gear Sleeve 33 T H|LOOSE|178.24|Y
+Black Head (Gear Housing)|LOOSE|318.28|Y
+Motor Housing|LOOSE|350.01|Y
+Piston|LOOSE|111.37|Y
+# PH 65 Spares
+Carbon Holder Set|200|124.81|Y
+Connecting Rod|50|299.28|Y
+Counter Gear / Small Gear|80|157.53|Y
+Cover Seal (Paper)|1200|12.73|Y
+Crank Shaft|60|313.95|Y
+Cylinder (Glass)|20|596.59|Y
+Final Gear (Big)|50|220.50|Y
+Cylinder Case (Neck) Light|18|1177.23|Y
+Neck (Cylinder Case) PH65A (1.680)|10|-|N
+Neck (Cylinder Case) PH65 SC (1.95)|10|1648.08|Y
+Piston|200|103.95|Y
+Piston L Ring|1000|48.83|Y
+Piston Pin|1000|23.07|Y
+Side Handle Set|50|224.33|Y
+Stop Lever Set|200|78.76|Y
+Switch Handle Set|100|71.59|Y
+Tool Holder (Kala Ghutka)|30|362.26|Y
+Toolholder Set with Stop Lever|30|472.51|Y
+# 0810 Spares
+Carbon Holder with Cap|900|68.16|Y
+Complete Tool Holder Set (Barrel, 9 parts)|10|1130.77|Y
+Connecting Rod|200|116.57|Y
+Crank Shaft|320|92.27|Y
+Iron Metal Rod|300|71.59|Y
+Oil Cap (Grease Cap) with O-Ring|300|28.36|N
+Piston|400|75.61|Y
+Piston O-Ring|1500|33.07|Y
+Impact Bolt|50|85.92|Y
+Switch Handle Set|100|63.01|N
+Switch Support|1200|20.47|Y
+Rubber Side Handle|100|119.32|Y
+Tool Holder with O-Ring|20|472.52|Y
+Iron Piston|200|63.01|Y
+Body (Motor Housing)|50|214.21|Y
+Striker|100|80.97|Y
+Quarter Pin|2000|3.24|Y
+Gear Box|50|542.50|Y
+# 0835 Spares ~ 7KG
+Complete Cylinder for JY0835|10|1460.82|Y
+Complete Cylinder for 0835 (DPT 455)|10|1522.24|Y
+Neck 0835 (DPT 455)|50|453.44|Y
+Gear Housing Set|20|775.34|S
+Switch Handle|100|98.67|S
+Toolholder|32|529.22|Y
+Side Handle|50|163.86|Y
+Body (Motor Housing) China Type|50|214.77|Y
+Gear Housing Set China Model|20|696.31|S
+O-Ring|1000|33.07|Y
+Piston|1000|98.67|Y
+Piston + O-Ring + Pin|250|130.21|S
+Tool Holder China Type Small (JS 7KG)|20|529.22|Y
+# 0845 Spares
+Toolholder SDS Type|32|717.15|Y
+Complete Barrel Set 0845KC DH-7 (6 Bolt)|8|1651.80|Y
+Toolholder B Type (6 Bolt, Long)|27|668.18|Y
+Toolholder A Type (6 Bolt, Short)|27|668.18|Y
+# 11E Spares
+Bearing Cover|60|141.77|Y
+Black Needle Bearing (4902)|LOOSE|72.46|Y
+Brush Holder Set (8 parts)|108|316.13|N
+Fan|200|126.01|N
+Front / Side Handle Set|50|342.05|Y
+Gear Box (Mechanism) Set|10|1512.04|Y
+Gear Z 60|60|425.26|Y
+Hammer Pipe|50|397.73|Y
+Needle Roller Assembly|2010|56.69|Y
+Nose Cap (11 pcs)|80|504.03|N
+Packing Seal (Namda, Grey Fley)|2400|20.49|Y
+Shift Plate + Bearing|360|60.46|Y
+Speed Governor|100|556.82|Y
+Stopping Device|1000|47.26|Y
+Striker Pin|50|262.51|Y
+Switch Lever|560|31.51|Y
+Tool Holder|50|661.51|Y
+# 7KG Spares ~ DPT 7000
+Back Cover (57 no.)|30|103.41|Y
+Big Gear (38 no.)|100|147.96|Y
+Brush Holder Set with Cap (54/56 no.)|LOOSE|111.37|Y
+Buffer Ring (9 no.)|LOOSE|75.17|Y
+Buffer Ring (12 no.)|LOOSE|75.17|Y
+Crankshaft (30 no.)|200|160.69|Y
+Cylinder Case Neck (20 no.)|25|477.28|Y
+Cylinder Ring (17 no.)|LOOSE|13.13|Y
+Gear Box (35 no.)|25|-|N
+Hammer Washer (11 no.)|LOOSE|49.32|Y
+IG Plate (40 no.)|100|201.46|Y
+Iron Hammer Bullet (10 no.)|100|186.14|N
+Oil Cover (28 no.)|LOOSE|39.77|Y
+O-Ring 22.5*5 (14 no.)|LOOSE|2.78|Y
+O-Ring (23 no.)|LOOSE|40.57|N
+O-Ring for Oil Cover (29 no.)|LOOSE|12.72|Y
+O-Ring 41.5*2 (15 no.)|LOOSE|2.78|Y
+Punch Hammer (22 no.)|50|25.85|Y
+Switch Handle (59-60 no.)|LOOSE|302.27|Y
+Screw Set M8*35 (18 no.)|LOOSE|12.73|Y
+# 8KG & 12KG Spares ~ DPT 8000 / DPT 12000
+Front Nose Cap Set (1-6 no.) · 8KG|25|270.45|Y
+Armature (62 no.) · 12KG|LOOSE|-|N
+Crank Shaft (54 no.) · 12KG|25|1021.37|Y
+# 21KG Spares ~ DPT 21000
+Armature (70 no.)|10|2124.99|Y
+Auxiliary / Front Handle Set (102-110 no.)|20|445.45|Y
+Complete Front Cover Set (1-7 no.)|8|1638.64|Y
+Crank Shaft (92 no.)|50|357.96|Y
+Fan Nut (82 no.)|200|15.90|Y
+Iron Hammer Bullet (13 no.)|70|397.73|Y
+Neck Cylinder Case (21 no.)|LOOSE|-|N
+Motor Housing Body (28 no.)|8|2227.27|Y
+Split Sleeve (16 no.)|70|238.64|Y
+Stop Lever Set (1-7 no.)|60|298.74|Y
+Tool Holder (4 no.)|30|1352.27|Y
+Back Cover PVC (84 no.)|LOOSE|154.32|Y
+Cover Plate / Switch Handle Plate (44 no.)|LOOSE|262.50|Y
+Screw M10X65 (8 no.)|LOOSE|29.61|Y
+Spring (10 no.)|LOOSE|38.12|Y
+Washer (9 no.)|LOOSE|3.70|Y
+## Cutter & Grinder Spares
+# Pro CM5 WC/MC Spares
+Base Plate (Big)|50|274.04|N
+Base Plate (Small)|50|219.23|Y
+Body with Jali|50|461.36|Y
+Head|100|-|N
+Lever Bolt|500|57.28|Y
+# AB Washer
+For 6-100|500|19.73|S
+For CM4SA|400|21.14|S
+For CM4SA Metal (Heavy)|400|44.93|Y
+For CM5 Old / MT 410|200|21.72|Y
+# Body & Gear Box
+Body Complete Set for 6-100|50|191.29|Y
+Body Complete Set for 801|50|191.29|S
+Body Complete Set for CM4SA (Green)|25|198.86|N
+Body Complete Set for CM4SA (Red)|25|198.86|Y
+Body for CM4SB (Green)|50|198.86|N
+Body for CM4SB (Red)|50|198.86|Y
+Gear Box for 6-100|100|226.30|N
+Gear Box for 801|100|226.30|S
+Gear Box for 9913/9523/850W|100|299.88|Y
+Gear Box for PDA100D|100|237.30|Y
+# Angle Grinder Spares
+Bearing Flange for GWS 6-100|250|53.45|N
+Lock Set for 801|5000|9.46|Y
+Needle Bearing HK 0810 (801 Gear Box)|10000|9.46|Y
+Spindle for 801|500|38.75|Y
+Lock Set for 6-100|2000|9.46|N
+Spindle for 6-100|500|38.75|Y
+L-Nut for CM4SA|2000|3.58|S
+## Gears & Switches
+# Pro Gear
+Gear for 0810|100|89.71|Y
+Gear for 2-20 (2 pcs)|300|83.43|N
+Gear for 2-26 (2 pcs)|200|108.18|Y
+Gear for 6-100|200|100.82|Y
+Gear for 801|200|100.82|Y
+Gear for CM4SA|400|67.72|Y
+Gear for CM4SB|300|68.95|Y
+Gear for PDA100M|200|100.23|Y
+Gear 9553|300|100.23|Y
+Gear G10 SS|300|100.23|Y
+Gear GCO-2000|150|158.69|Y
+Gear DW871|150|176.79|Y
+Gear 28710|150|158.69|Y
+Gear MT410|300|91.87|Y
+Gear G-15SA2|100|178.07|Y
+Gear for FF160 (3 pcs)|150|176.77|Y
+Gear for 11E Z60|60|425.26|Y
+Gear for DPT 900W|200|278.41|Y
+Gear for DPT 950W|200|238.64|Y
+Gear for DPT 1100W|200|238.64|Y
+Gear for DPT 1029|200|208.38|Y
+# Pro Switch
+For 0810|250|93.18|Y
+For 0835 (7KG)|250|84.20|S
+For 11E|250|131.09|S
+For 13RE|250|131.09|Y
+For 2-20 (Variable)|480|119.17|S
+For 2-26 (Variable)|200|140.01|S
+For 5016|200|114.20|S
+For 6-100 (High Quality)|500|39.72|S
+For 6-100 (Normal Quality)|500|31.79|S
+For 6.5MM|200|165.99|Y
+For 801|1000|27.09|Y
+For CM4SA|500|20.35|S
+For CM4SA (Dust Proof)|500|39.73|S
+For FF-10A|250|102.46|S
+For FF160|400|99.72|Y
+For G15SA2|250|93.18|Y
+For GCO200|250|119.13|S
+For LG355|250|96.43|Y
+For PH65A|250|93.18|Y
+For Screw Driver (10B) Old Type|250|108.92|Y
+For Screw Driver (10C)|250|142.45|Y
+Left/Right for 2-20|400|158.41|Y
+For 12V|250|200.08|N
+For 21V|250|200.08|N
+For 5682|250|87.78|S
+For 10MM (L/R) New|300|137.15|Y
+For CM5 WC/MC|250|94.63|S
+For MT60|250|105.49|S
+For 28700|250|162.84|Y
+For 28710|250|165.85|Y
+For GCO2000|250|136.42|Y
+For 6510|250|120.13|N
+## Carbon Brush
+# Carbon Brush
+For 0810|1000|13.74|S
+For 2-20|1000|9.91|Y
+For 2-26|1000|9.91|Y
+For 2310|1000|8.35|Y
+For 2510|1000|8.35|S
+For 6-100|1000|9.91|S
+For GCO 200|1000|19.66|N
+For 28700|1000|17.02|Y
+For Trimmer|1000|13.49|Y
+For Paint Mixture|1000|13.49|Y
+For Vibrator (35-1)|1000|9.91|Y
+For CM4SA|1000|13.49|S
+For DU-10|1000|9.91|N
+For DW801|1000|9.91|S
+For 11E|1000|19.66|N
+For PH65A|1000|18.37|S
+For LG355|1000|16.70|S
+For MT410|1000|13.49|Y
+For PDA100D|1000|9.91|Y
+For 20-180|1000|19.66|Y
+For 8-100|1000|13.49|Y
+For PD 100 M|1000|9.91|Y
+## Other Spares
+# Vibrator Shaft & Mixture Rod
+Shaft 1 Mtr 35MM|10|739.78|N
+Shaft 1.5 Mtr 35MM|10|835.22|N
+Shaft 2 Mtr 35MM|5|1113.64|N
+Shaft 3 Mtr 35MM|2/4|1392.05|Y
+50MM Shaft 1 Mtr|5|1909.09|Y
+50MM Shaft 1.5 Mtr|5|2028.42|N
+50MM Shaft 3 Mtr|2|2704.55|Y
+50MM Shaft 4 Mtr|2|3420.46|Y
+50MM Shaft 4 Mtr (Stand Type)|1|3420.46|S
+Spiral Mixture Rod 60 CM|20|361.85|Y
+# Cordless Drill Spares
+Motor 12V|100|300.51|N
+Motor 21V|100|315.01|N
+Charger 12V|300|143.18|N
+Charger 21V|300|214.77|Y
+Battery 12V|50|340.42|S
+Battery 20V (Dewalt type)|50|-|N
+Battery 20V (Makita type)|50|-|N
+# Pressure Washer & Misc
+Pressure Washer Normal Filter|250|47.73|Y
+High Pressure Water Mid-Long Gun|20|1073.87|Y
+Brush Holder for 13RE|300|111.36|Y
+Belt for Mitersaw 255|500|85.49|Y
+`;
+
+// ---------- Parse ----------
+const CATS = [], TABS = [];
+let cat, sub, tab;
+for (const line of RAW.split("\n")) {
+  const t = line.trim(); if (!t) continue;
+  if (t.startsWith("### ")) { tab = t.slice(4); TABS.push(tab); }
+  else if (t.startsWith("## ")) { cat = { name: t.slice(3), subs: [], tab }; CATS.push(cat); }
+  else if (t.startsWith("# ")) {
+    const [n, b] = t.slice(2).split(" ~ ");
+    sub = { name: n.trim(), brand: (b || "").trim(), items: [], cat };
+    sub.key = cat.name + "|" + sub.name + "|" + sub.brand;
+    cat.subs.push(sub);
+  } else {
+    const [d, p, pr, s] = t.split("|");
+    sub.items.push({ d, p, price: pr === "-" ? null : parseFloat(pr), s, sub });
+  }
+}
+const SUBS = new Map(); CATS.forEach(c => c.subs.forEach(s => SUBS.set(s.key, s)));
+
+// ---------- State ----------
+const LS = "divs-rate-book-v1";
+let state = { disc: {}, cat: null, instock: false, tab: TABS[0] };
+try { const s = JSON.parse(localStorage.getItem(LS) || "null"); if (s) {
+  state.disc = s.disc || {}; state.instock = !!s.instock;
+  state.tab = TABS.includes(s.tab) ? s.tab : TABS[0];
+  state.cat = CATS.some(c => c.name === s.cat && c.tab === state.tab) ? s.cat : null;
+} } catch (e) {}
+const tabCats = () => CATS.filter(c => c.tab === state.tab);
+const TAB_HINT = { "Abrasives": "12X210, flap disc", "Power Tools": "grinder, DPT 5063", "Spare Parts": "2-26, switch 801" };
+const save = () => { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} };
+const closed = new Set();
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const inr = n => "₹" + n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const STL = { Y: "In stock", S: "Arriving soon", N: "Out of stock" };
+const label = s => s.name + (s.brand ? " · " + s.brand : "");
+const pcs = p => /^\d+$/.test(p) ? +p : (p.match(/^(\d+)/) || [])[1] ? +p.match(/^(\d+)/)[1] : null;
+
+function discFor(s) {
+  if (("s:" + s.key) in state.disc) return state.disc["s:" + s.key];
+  if (("c:" + s.cat.name) in state.disc) return state.disc["c:" + s.cat.name];
+  return 0;
+}
+const net = it => it.price == null ? null : it.price * (1 - discFor(it.sub) / 100);
+const keyLabel = k => k.startsWith("c:") ? "All " + k.slice(2) : (SUBS.get(k.slice(2)) ? label(SUBS.get(k.slice(2))) : null);
+const fmtPct = v => (+v).toString();
+
+// ---------- Render ----------
+function renderTabs() {
+  $("tabs").innerHTML = TABS.map(t => {
+    const n = CATS.filter(c => c.tab === t).reduce((a, c) => a + c.subs.reduce((b, s) => b + s.items.length, 0), 0);
+    return `<button type="button" class="tab" role="tab" data-tab="${esc(t)}" aria-selected="${t === state.tab}">${esc(t)}<small class="num">${n} items</small></button>`;
+  }).join("");
+  $("q").placeholder = "Search · " + (TAB_HINT[state.tab] || state.tab);
+}
+
+function renderRail() {
+  const items = [{ n: null, t: "Overview" }, ...tabCats().map(c => ({ n: c.name, t: c.name }))];
+  $("rail").innerHTML = items.map(i => `<button type="button" class="cat" data-cat="${esc(i.n ?? "")}" aria-pressed="${i.n === state.cat}">${esc(i.t)}</button>`).join("");
+  const on = $("rail").querySelector('[aria-pressed="true"]');
+  if (on) on.scrollIntoView({ inline: "center", block: "nearest" });
+}
+
+function renderDisc() {
+  const tabOf = k => k.startsWith("c:") ? (CATS.find(c => c.name === k.slice(2)) || {}).tab : (SUBS.get(k.slice(2)) || { cat: {} }).cat.tab;
+  const keys = Object.keys(state.disc).filter(k => keyLabel(k) && tabOf(k) === state.tab);
+  $("dsum").textContent = keys.length ? `${keys.length} active in ${state.tab} · tap to edit` : `None in ${state.tab} · showing list prices`;
+  $("dchips").hidden = !keys.length;
+  $("dchips").innerHTML = keys.map(k => `<button type="button" class="dchip" data-k="${esc(k)}"><b class="num">−${fmtPct(state.disc[k])}%</b><span>${esc(keyLabel(k))}</span></button>`).join("");
+}
+
+function catMaxDisc(c) { return Math.max(0, ...c.subs.map(discFor)); }
+
+function rowHTML(it) {
+  const n = net(it), d = discFor(it.sub);
+  const pack = it.p === "-" ? "" : it.p === "LOOSE" ? " · Loose" : ` · CTN ${esc(it.p.replace(/\s*PCS?$/i, ""))}`;
+  return `<button type="button" class="row" data-i="${it._i}">
+    <div class="r-l"><div class="d">${esc(it.d)}</div><div class="m"><i class="dot ${it.s}"></i><span class="st-${it.s}">${STL[it.s]}</span><span>${pack}</span></div></div>
+    <div class="r-r num">${n == null ? `<span class="na">No rate</span>` : `<div class="p">${inr(n)}</div>${d ? `<s>${inr(it.price)}</s>` : ""}`}</div>
+  </button>`;
+}
+
+let ITEMS = [];
+CATS.forEach(c => c.subs.forEach(s => s.items.forEach(it => { it._i = ITEMS.length; ITEMS.push(it); })));
+
+function subHTML(s, items, forceOpen) {
+  const d = discFor(s), open = forceOpen || !closed.has(s.key);
+  return `<details class="sub" data-key="${esc(s.key)}"${open ? " open" : ""}>
+    <summary><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      <div class="stxt"><h3>${esc(s.name)}</h3><small>${s.brand ? esc(s.brand) + " · " : ""}${items.length} item${items.length > 1 ? "s" : ""}</small></div>
+      <button type="button" class="dbtn ${d ? "on" : ""} num" data-edit="s:${esc(s.key)}" aria-label="Discount for ${esc(label(s))}">${d ? "−" + fmtPct(d) + "%" : "%"}</button>
+    </summary>
+    <div class="rows">${items.map(rowHTML).join("")}</div></details>`;
+}
+
+function renderList() {
+  const q = $("q").value.trim().toLowerCase().replace(/\s+/g, " ");
+  $("qclear").hidden = !q;
+  const ok = it => !state.instock || it.s === "Y";
+  let html = "", shown = 0;
+
+  if (q) {
+    for (const c of tabCats()) {
+      let ch = "";
+      for (const s of c.subs) {
+        const subHit = (s.name + " " + s.brand).toLowerCase().includes(q);
+        const items = s.items.filter(it => ok(it) && (subHit || it.d.toLowerCase().includes(q)));
+        if (items.length) { shown += items.length; ch += subHTML(s, items, true); }
+      }
+      if (ch) html += `<div class="ctitle"><h2>${esc(c.name)}</h2></div>` + ch;
+    }
+    if (!html) html = `<div class="empty"><b>No match</b>Try a size like 12X210, or turn off “In stock only”.</div>`;
+  } else if (!state.cat) {
+    html = `<div class="tiles">` + tabCats().map(c => {
+      const n = c.subs.reduce((a, s) => a + s.items.filter(ok).length, 0); shown += n;
+      const md = catMaxDisc(c);
+      return `<button type="button" class="tile" data-go="${esc(c.name)}"><h3>${esc(c.name)}</h3>
+        <div class="meta"><span class="num">${n} items</span>${md ? `<span class="pill num">−${fmtPct(md)}%</span>` : ""}</div></button>`;
+    }).join("") + `</div>`;
+  } else {
+    const c = CATS.find(c => c.name === state.cat);
+    let ch = "";
+    for (const s of c.subs) {
+      const items = s.items.filter(ok);
+      if (items.length) { shown += items.length; ch += subHTML(s, items, false); }
+    }
+    const allClosed = c.subs.every(s => closed.has(s.key));
+    html = `<div class="ctitle"><h2>${esc(c.name)}</h2><button type="button" id="toggleAll">${allClosed ? "Expand all" : "Collapse all"}</button></div>` +
+      (ch || `<div class="empty"><b>Nothing in stock</b>Turn off “In stock only” to see every item.</div>`);
+  }
+  $("list").innerHTML = html;
+  $("count").textContent = shown + " items";
+}
+
+function renderAll() { renderTabs(); renderRail(); renderDisc(); renderList(); }
+
+// ---------- Sheets ----------
+let openSheet = null;
+function show(el) {
+  if (openSheet) hide(true);
+  openSheet = el; $("scrim").hidden = false; el.hidden = false;
+  requestAnimationFrame(() => { $("scrim").classList.add("show"); el.classList.add("show"); });
+  document.body.style.overflow = "hidden";
+}
+function hide(instant) {
+  const el = openSheet; if (!el) return; openSheet = null;
+  $("scrim").classList.remove("show"); el.classList.remove("show");
+  document.body.style.overflow = "";
+  const done = () => { el.hidden = true; if (!openSheet) $("scrim").hidden = true; };
+  instant ? done() : setTimeout(done, 260);
+}
+$("scrim").addEventListener("click", () => hide());
+document.addEventListener("keydown", e => { if (e.key === "Escape") hide(); });
+// swipe down to close
+document.querySelectorAll(".sheet").forEach(sh => {
+  let y0 = null;
+  sh.addEventListener("touchstart", e => { y0 = sh.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
+  sh.addEventListener("touchmove", e => { if (y0 == null) return; const dy = e.touches[0].clientY - y0; if (dy > 0) sh.style.transform = `translateY(${dy}px)`; }, { passive: true });
+  sh.addEventListener("touchend", e => { if (y0 == null) return; const dy = e.changedTouches[0].clientY - y0; sh.style.transform = ""; y0 = null; if (dy > 90) hide(); });
+});
+
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1700); }
+
+// Discount sheet
+const QUICK = [5, 10, 15, 20, 25, 30];
+$("quick").innerHTML = QUICK.map(v => `<button type="button" data-q="${v}">${v}%</button>`).join("");
+$("fcat").innerHTML = TABS.map(t => `<optgroup label="${esc(t)}">` + CATS.filter(c => c.tab === t).map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("") + `</optgroup>`).join("");
+
+function fillSubs(catName, selKey) {
+  const c = CATS.find(c => c.name === catName);
+  $("fsub").innerHTML = `<option value="c:${esc(c.name)}">All subcategories</option>` + c.subs.map(s => `<option value="s:${esc(s.key)}">${esc(label(s))}</option>`).join("");
+  $("fsub").value = selKey || "c:" + c.name;
+}
+function curKey() { return $("fsub").value; }
+function readPct() { const v = parseFloat($("fpct").value.replace(",", ".")); return isNaN(v) ? 0 : Math.max(0, Math.min(100, v)); }
+function syncSheet() {
+  const k = curKey(), v = readPct();
+  $("quick").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.q === v));
+  $("fremove").disabled = !(k in state.disc);
+  let sample = null;
+  if (k.startsWith("s:")) sample = SUBS.get(k.slice(2)).items.find(i => i.price != null);
+  else sample = CATS.find(c => c.name === k.slice(2)).subs.flatMap(s => s.items).find(i => i.price != null);
+  $("fprev").innerHTML = sample
+    ? `<span>${esc(sample.d)}</span><span class="num">${inr(sample.price)} → <b>${inr(sample.price * (1 - v / 100))}</b></span>`
+    : `<span>No priced items in this group</span>`;
+  $("fsave").textContent = v > 0 ? `Apply ${fmtPct(v)}% off` : "Apply discount";
+}
+function openDisc(key) {
+  let catName, k = key;
+  if (!k) { catName = state.cat || tabCats()[0].name; k = "c:" + catName; }
+  else catName = k.startsWith("c:") ? k.slice(2) : SUBS.get(k.slice(2)).cat.name;
+  $("fcat").value = catName; fillSubs(catName, k);
+  $("fpct").value = k in state.disc ? fmtPct(state.disc[k]) : "";
+  syncSheet(); show($("dsheet"));
+}
+$("fcat").addEventListener("change", () => { fillSubs($("fcat").value); $("fpct").value = curKey() in state.disc ? fmtPct(state.disc[curKey()]) : ""; syncSheet(); });
+$("fsub").addEventListener("change", () => { $("fpct").value = curKey() in state.disc ? fmtPct(state.disc[curKey()]) : ""; syncSheet(); });
+$("fpct").addEventListener("input", () => { $("fpct").value = $("fpct").value.replace(/[^\d.,]/g, ""); syncSheet(); });
+$("quick").addEventListener("click", e => { const b = e.target.closest("[data-q]"); if (b) { $("fpct").value = b.dataset.q; syncSheet(); } });
+$("minus").addEventListener("click", () => { $("fpct").value = fmtPct(Math.max(0, Math.round(readPct()) - 1)); syncSheet(); });
+$("plus").addEventListener("click", () => { $("fpct").value = fmtPct(Math.min(100, Math.round(readPct()) + 1)); syncSheet(); });
+$("fsave").addEventListener("click", () => {
+  const k = curKey(), v = Math.round(readPct() * 100) / 100;
+  if (v > 0) { state.disc[k] = v; toast(`${fmtPct(v)}% off · ${keyLabel(k)}`); }
+  else if (k in state.disc) { delete state.disc[k]; toast("Discount removed"); }
+  save(); hide(); renderDisc(); renderList();
+});
+$("fremove").addEventListener("click", () => { delete state.disc[curKey()]; save(); hide(); renderDisc(); renderList(); toast("Discount removed"); });
+
+// Item sheet
+let curItem = null;
+function openItem(it) {
+  curItem = it;
+  const d = discFor(it.sub), n = net(it), q = pcs(it.p);
+  $("ist").textContent = it.d;
+  $("isub").textContent = label(it.sub) + " · " + STL[it.s];
+  const rows = [];
+  if (it.price == null) rows.push(["Rate", "Not listed"]);
+  else {
+    rows.push(["List price / pc", inr(it.price)]);
+    rows.push(["Discount", d ? `−${fmtPct(d)}%  (${inr(it.price - n)})` : "None"]);
+    rows.push(["Net price / pc", inr(n), "big"]);
+  }
+  rows.push(["Carton", it.p === "-" ? "Not listed" : it.p === "LOOSE" ? "Sold loose" : "1 CTN = " + it.p.replace(/(\d)$/, "$1 PCS")]);
+  if (q && n != null) rows.push(["Net per carton", inr(n * q)]);
+  $("ikv").innerHTML = rows.map(r => `<div class="${r[2] || ""}"><dt>${r[0]}</dt><dd class="num">${esc(r[1])}</dd></div>`).join("");
+  show($("isheet"));
+}
+$("iedit").addEventListener("click", () => openDisc("s:" + curItem.sub.key));
+
+// ---------- Events ----------
+$("dadd").addEventListener("click", () => openDisc());
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest("[data-tab]"); if (!b || b.dataset.tab === state.tab) return;
+  state.tab = b.dataset.tab; state.cat = null; $("q").value = ""; save();
+  renderTabs(); renderRail(); renderDisc(); renderList(); window.scrollTo({ top: 0 });
+});
+$("dchips").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) openDisc(b.dataset.k); });
+$("home").addEventListener("click", () => { state.cat = null; $("q").value = ""; save(); renderRail(); renderList(); window.scrollTo({ top: 0 }); });
+$("rail").addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]"); if (!b) return;
+  state.cat = b.dataset.cat || null; $("q").value = ""; save(); renderRail(); renderList();
+  window.scrollTo({ top: 0 });
+});
+$("list").addEventListener("click", e => {
+  const ed = e.target.closest("[data-edit]");
+  if (ed) { e.preventDefault(); e.stopPropagation(); openDisc(ed.dataset.edit); return; }
+  const go = e.target.closest("[data-go]");
+  if (go) { state.cat = go.dataset.go; save(); renderRail(); renderList(); window.scrollTo({ top: 0 }); return; }
+  if (e.target.id === "toggleAll") {
+    const c = CATS.find(c => c.name === state.cat), allClosed = c.subs.every(s => closed.has(s.key));
+    c.subs.forEach(s => allClosed ? closed.delete(s.key) : closed.add(s.key)); renderList(); return;
+  }
+  const r = e.target.closest("[data-i]"); if (r) openItem(ITEMS[+r.dataset.i]);
+});
+$("list").addEventListener("toggle", e => {
+  const d = e.target; if (!d.matches || !d.matches("details.sub") || $("q").value.trim()) return;
+  d.open ? closed.delete(d.dataset.key) : closed.add(d.dataset.key);
+  const t = $("toggleAll"), c = CATS.find(c => c.name === state.cat);
+  if (t && c) t.textContent = c.subs.every(s => closed.has(s.key)) ? "Expand all" : "Collapse all";
+}, true);
+let qt; $("q").addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(renderList, 120); });
+$("q").addEventListener("keydown", e => { if (e.key === "Enter") e.target.blur(); });
+$("qclear").addEventListener("click", () => { $("q").value = ""; renderList(); $("q").focus(); });
+$("instock").checked = state.instock;
+$("instock").addEventListener("change", e => { state.instock = e.target.checked; save(); renderList(); });
+
+renderAll();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+</script>
+</body>
+</html>
+
