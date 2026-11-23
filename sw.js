@@ -1,6 +1,6 @@
 // Offline cache for Div's Rate Book.
 // Change CACHE when you want every phone to fetch a fresh copy of the files.
-const CACHE = "divs-rate-book-v1";
+const CACHE = "divs-rate-book-v2";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {

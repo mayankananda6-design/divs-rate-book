@@ -179,7 +179,7 @@ details[open] > summary .chev{transform:rotate(90deg)}
   <div class="bar"><div class="bar-in">
     <div class="brand">
       <button type="button" id="home" aria-label="Go to overview"><h1>Div's <span>Rate Book</span></h1></button>
-      <div class="date">Price list<br>21 Sep 2026</div>
+      <div class="date">Price list<br>16 Nov 2026</div>
     </div>
     <div class="tabs" id="tabs" role="tablist" aria-label="Price lists"></div>
     <div class="sbox">
@@ -204,7 +204,7 @@ details[open] > summary .chev{transform:rotate(90deg)}
   </div>
 
   <main id="list"></main>
-  <p class="foot">Rates in ₹ per piece, from the Div's Accessories &amp; Abrasive and Power Tools &amp; Spares stock lists dated 21/09/2026.<br>Tap any item for carton totals. Discounts are saved on this phone.</p>
+  <p class="foot">Rates in ₹ per piece, from the Div's Accessories &amp; Abrasive, Power Tools &amp; Spares and Economy Series stock lists dated 16/11/2026.<br>Tap any item for carton totals. Discounts are saved on this phone.</p>
 </div>
 
 <div id="scrim" class="scrim" hidden></div>
@@ -248,12 +248,9 @@ const RAW = `
 14X250 (SDS)|100|81.14|Y
 17X280 (0810)|50|135.67|Y
 17X400 (0810)|50|208.73|Y
-18X280 (11-E)|50|144.88|S
+18X280 (11-E)|50|144.88|Y
 18X400 (11-E)|25|208.73|Y
 18X600 (11-E)|10|310.90|Y
-HILTI 22X400|25|833.34|N
-HILTI 22X500|25|1083.33|N
-HILTI 22X600|20|1250.01|N
 30X410 (PH-65)|10|448.87|Y
 30X600 (PH-65)|10|689.01|Y
 # Chisel Flat
@@ -264,38 +261,38 @@ HILTI 22X600|20|1250.01|N
 18X400X25|25|208.73|Y
 18X480X25|25|238.64|Y
 18X600X25|10|310.90|Y
-30X410X35|10|448.87|S
+30X410X35|10|448.87|Y
 30X480X35|10|517.05|Y
 30X600X35|10|689.01|Y
 # Chisel Xtra Wide
-14X250X50|50|167.66|S
-17X280X50|50|199.31|S
-17X400X50|25|276.36|S
-17X400X80|25|454.53|S
+14X250X50|50|167.66|N
+17X280X50|50|199.31|Y
+17X400X50|25|276.36|Y
+17X400X80|25|454.53|Y
 18X280X50|50|203.30|Y
 18X400X50|25|281.89|N
-18X400X80|20|467.92|S
+18X400X80|20|467.92|Y
 18X600X80|20|572.73|Y
 # Chisel Economic Series ~ Div's Silver (point, flat & xtra wide)
 14X250|100|64.90|Y
-17X280|50|97.98|S
-17X400|50|159.52|S
-18X400|30|175.86|S
-18X600|20|265.26|S
+17X280|50|97.98|Y
+17X400|50|159.52|Y
+18X400|30|175.86|Y
+18X600|20|265.26|Y
 30X400|20|363.45|Y
 14X250X20|100|64.90|Y
-17X280X22|50|97.98|S
-17X400X22|50|159.52|Y
-18X400X25|30|175.86|S
-30X400X35|20|363.45|S
-17X400X75 Xtra Wide|30|363.66|S
+17X280X22|50|97.98|Y
+17X400X22|50|159.52|N
+18X400X25|30|175.86|Y
+30X400X35|20|363.45|Y
+17X400X75 Xtra Wide|30|363.66|Y
 18X400X75 Xtra Wide|20|374.34|Y
 ## Hammer Bits
 # Single Tip Hammer Drill Bits
-4X110|500|54.81|S
+4X110|500|54.81|Y
 5X110|500|52.48|Y
 5.5X110|500|54.81|Y
-5X160|500|60.11|S
+5X160|500|60.11|Y
 5.5X160|500|60.11|Y
 6X110|500|52.48|Y
 6.5X110|500|62.70|Y
@@ -308,7 +305,7 @@ HILTI 22X600|20|1250.01|N
 8X210|200|93.40|Y
 8X260|100|112.19|N
 8X350|100|156.52|Y
-10X110|500|76.96|S
+10X110|500|76.96|Y
 10X160|200|82.15|Y
 10X210|200|107.01|Y
 10X260|100|127.87|Y
@@ -324,7 +321,7 @@ HILTI 22X600|20|1250.01|N
 12X350|100|182.57|Y
 12X450|100|229.58|Y
 12X600|50|326.10|Y
-13X160|200|131.89|S
+13X160|200|131.89|Y
 13X210|200|159.21|Y
 14X160|200|136.30|Y
 14X210|200|150.01|Y
@@ -334,22 +331,22 @@ HILTI 22X600|20|1250.01|N
 14X400|100|258.75|Y
 14X450|50|289.69|Y
 14X600|200|409.57|Y
-15X160|200|156.52|Y
+15X160|200|156.52|N
 15X210|200|182.76|Y
 16X160|200|156.52|Y
-16X210|200|191.74|S
+16X210|200|191.74|Y
 16X260|100|224.30|Y
 16X310|100|247.43|Y
 16X350|100|286.99|Y
 16X450|50|396.49|Y
 16X600|50|521.63|Y
 18X160|100|228.28|Y
-18X210|100|240.66|S
-18X260|100|281.69|S
+18X210|100|240.66|Y
+18X260|100|281.69|N
 18X310|50|341.57|Y
 18X350|50|373.02|Y
 18X450|50|461.64|Y
-18X600|25|517.26|Y
+18X600|25|517.26|N
 19X160|100|282.25|Y
 19X210|100|292.16|Y
 19X260|50|331.12|Y
@@ -364,12 +361,12 @@ HILTI 22X600|20|1250.01|N
 20X350|50|482.62|Y
 20X450|25|521.63|Y
 20X500|25|727.39|Y
-20X600|20|704.21|S
+20X600|20|704.21|N
 22X160|50|356.47|Y
 22X210|50|433.09|Y
 22X260|50|446.09|Y
-22X310|50|503.01|S
-22X350|50|534.71|S
+22X310|50|503.01|Y
+22X350|50|534.71|Y
 22X450|50|704.21|Y
 22X600|25|1147.18|Y
 24X260|50|497.60|Y
@@ -377,16 +374,16 @@ HILTI 22X600|20|1250.01|N
 24X450|50|729.21|Y
 25X160|25|483.13|N
 25X210|20|573.96|Y
-25X260|50|599.89|S
+25X260|50|599.89|Y
 25X310|50|625.96|Y
-25X350|50|704.21|S
-25X450|25|769.37|Y
+25X350|50|704.21|N
+25X450|25|769.37|N
 25X600|25|938.97|Y
 26X210|50|705.68|Y
 26X260|50|770.81|Y
 26X310|25|890.23|Y
 28X310|25|968.05|Y
-28X450|50|1085.66|Y
+28X450|50|1085.66|N
 30X310|50|1139.94|Y
 30X450|25|1657.44|Y
 32X310|25|1214.13|Y
@@ -425,19 +422,19 @@ HILTI 22X600|20|1250.01|N
 14X260|200|232.07|Y
 14X310|100|264.69|Y
 14X350|100|289.62|Y
-14X450|100|-|N
+14X450|100|-|Y
 16X160|50|218.64|Y
 16X210|200|247.43|Y
 16X260|200|291.54|Y
 16X310|100|320.31|Y
-16X350|100|-|N
-16X450|100|-|N
-18X160|50|-|N
-18X210|200|-|N
+16X350|100|387.43|N
+16X450|100|475.68|N
+18X160|50|281.96|N
+18X210|200|327.97|N
 18X260|100|395.11|Y
 18X310|100|433.46|Y
-18X350|50|-|N
-18X450|50|-|N
+18X350|50|460.30|N
+18X450|50|569.66|N
 20X160|50|383.60|Y
 20X210|100|410.45|Y
 20X260|50|464.17|Y
@@ -469,30 +466,30 @@ HILTI 22X600|20|1250.01|N
 3/32|5000|5.90|Y
 1/8|5000|4.75|Y
 5/32|2500|7.61|Y
-3/16|2000|11.12|S
-1/4|1000|16.28|S
+3/16|2000|11.12|Y
+1/4|1000|16.28|Y
 9/32|1000|19.86|N
 9/64|1000|5.95|N
-5/16|1000|29.38|S
-3/8|500|41.29|S
+5/16|1000|29.38|Y
+3/8|500|41.29|Y
 7/16|300|60.59|N
-1/2|250|97.64|S
+1/2|250|97.64|Y
 # Wood Flat Bits ~ Div's Silver
-10 MM|500|24.62|S
-12 MM|500|24.94|S
+10 MM|500|24.62|Y
+12 MM|500|24.94|Y
 14 MM|500|25.92|Y
-16 MM|500|27.21|S
-18 MM|500|27.86|S
-20 MM|500|28.83|S
-22 MM|500|30.45|S
-25 MM|500|32.07|S
+16 MM|500|27.21|Y
+18 MM|500|27.86|Y
+20 MM|500|28.83|Y
+22 MM|500|30.45|Y
+25 MM|500|32.07|Y
 # Screw Driver Bits ~ Div's Gold
 PH 2-65 (S2)|500|29.19|Y
 PH 2-65 (S2) (+, -)|500|29.19|Y
 With Ring PH 2-65 (S2)|500|37.77|Y
 4" (100 MM) PH 2-65 (S2)|500|44.79|Y
 4" (100 MM) With Ring PH 2-65 (S2)|500|51.17|Y
-Magnetic Nut Runner 8X65 (Div's Eco)|500|18.25|S
+Magnetic Nut Runner 8X65 (Div's Eco)|500|18.25|Y
 # Four Slot Wood Bits
 12 MM|500|89.43|Y
 14 MM|500|104.28|Y
@@ -503,17 +500,14 @@ Magnetic Nut Runner 8X65 (Div's Eco)|500|18.25|S
 30MM|50|297.35|N
 35MM|50|323.17|N
 40MM|25|339.51|N
-50MM|25|438.54|Y
+50MM|25|438.54|N
 65MM|25|504.87|Y
 80MM|25|680.20|Y
 Arbor (110MM)|25|181.69|Y
 Arbor (200MM)|25|250.74|Y
 Arbor (300MM)|25|330.87|Y
-Arbor (450MM)|25|436.51|Y
 # Ceramic & Masonry Bits
-Ceramic Bit 5 MM (Multifunctional)|500|-|N
-Ceramic Bit 6 MM (Multifunctional)|500|-|N
-Masonry Bit 1/4|1000|34.77|S
+Masonry Bit 1/4|1000|34.77|Y
 # Diamond Core Bits
 6.5 MM|160|208.41|Y
 12 MM|160|252.28|Y
@@ -525,26 +519,23 @@ Masonry Bit 1/4|1000|34.77|S
 # Metal Hole Saw
 12MM|200|120.23|Y
 16MM|200|144.27|Y
-20MM|200|180.34|Y
-22MM|250|198.38|Y
+20MM|200|180.34|S
+22MM|250|198.38|S
 25MM|200|225.43|Y
-32MM|100|288.55|S
-35MM|100|315.61|S
+32MM|100|288.55|Y
+35MM|100|315.61|Y
 38MM|100|342.67|S
-40MM|100|360.78|S
+40MM|100|360.78|Y
 50MM|100|450.99|Y
 57MM|100|517.99|Y
-63MM|100|568.23|Y
+63MM|100|568.23|S
 # Wooden Hole Saw
-6 Pcs Set|100|101.99|S
-12 Pcs Set|40|227.30|Y
+6 Pcs Set|100|101.99|Y
+12 Pcs Set|40|227.30|S
 16 Pcs Set|30|388.57|Y
 # Diamond Moulding Wheel
-3"X15MM|100|310.23|N
-3"X20MM|78|413.64|N
 3"X25MM|66|517.05|Y
 3"X30MM|54|620.46|Y
-3"X35MM|48|723.86|Y
 ## Accessories
 # Drill Chuck ~ Div's Gold
 Drill Chuck 6MM|100|125.36|Y
@@ -552,19 +543,19 @@ Drill Chuck 10MM (10X24)|100|125.36|Y
 Drill Chuck 13MM (13X20)|50|143.90|Y
 Drill Chuck 13MM (M-10)|50|156.98|Y
 Drill Chuck JT-6|30|337.93|Y
-Only Key 13MM|500|-|N
+Only Key 13MM|500|-|S
 # General Accessories
-Suction Cup (1 Claw)|36|366.86|S
+Suction Cup (1 Claw)|36|366.86|Y
 Suction Cup (2 Claw)|20|606.99|Y
-Suction Cup (3 Claw)|12|917.16|N
+Suction Cup (3 Claw)|12|917.16|Y
 Wool Pad 7"|320|151.52|Y
-Nylon Polish Brush 100 MM|100|194.67|S
-Bearing Puller 3" (75 MM)|60|318.19|S
-Bearing Puller 4" (100 MM)|40|397.73|S
+Nylon Polish Brush 100 MM|120|194.67|Y
+Bearing Puller 3" (75 MM)|60|318.19|Y
+Bearing Puller 4" (100 MM)|40|397.73|Y
 Bearing Puller 6" (150 MM)|20|517.05|Y
-Diamond Sharpening Stone 6"X2"|200|131.82|S
+Diamond Sharpening Stone 6"X2"|200|131.82|Y
 SDS Adaptor (Imported)|500|27.30|Y
-Silicon Stone 6"X2"X1|60|122.89|N
+Silicon Stone 6"X2"X1|60|122.89|Y
 # Planner Blade ~ Pro
 1900B TCT|100|336.89|Y
 F-20 TCT|100|336.89|Y
@@ -575,28 +566,26 @@ F-20 TCT|100|336.89|Y
 F-20|200|110.93|Y
 # Planner Blade ~ Silver
 1900B|200|82.58|Y
-F-20|200|82.58|Y
+F-20|200|82.58|N
 # Rubber Planner Belt ~ Div's Pro
-1900B|500|69.28|S
-F-20|500|69.28|S
+1900B|500|66.56|Y
+F-20|500|66.56|Y
 # Cup Brush ~ Div's Silver
-3" Twisted|100|66.83|N
+3" Twisted|100|66.83|S
 3" Crimped|100|63.48|Y
-4" Twisted|60|106.85|N
-4" Crimped|60|94.57|Y
+4" Twisted|60|106.85|S
+4" Crimped|60|94.57|S
 # Attachment ~ Div's Pro
 12" Chainsaw Attachment|10|682.70|Y
 16" Chainsaw Attachment|10|775.80|Y
-Drill Stand|10|-|N
-Grinder Stand|8|-|N
 # Rubber Hammer ~ Div's Gold
 40 MM (320 GM)|80|100.22|Y
 50 MM (400 GM)|70|119.81|Y
-60 MM (500 GM)|60|137.30|Y
+60 MM (500 GM)|60|137.30|S
 # Silicon Gun ~ Div's Pro
 Metal (500 GM)|40|229.41|S
-Metal (400 GM)|48|131.09|Y
-PVC (280 GM)|50|121.68|S
+Metal (400 GM)|48|131.09|S
+PVC (280 GM)|50|121.68|Y
 # Chainsaw Chain ~ Div's Pro full chisel
 Pro Chain 16"|50|318.19|Y
 Pro Chain 18"|50|499.10|Y
@@ -606,54 +595,53 @@ Guide Bar 16"|20|207.56|Y
 Guide Bar 18"|20|232.50|Y
 Guide Bar 22"|20|297.60|Y
 # Guide Bar & Chain ~ Div's Titanium / Gold
-Titanium Guide Bar 18"|20|320.02|S
-Titanium Guide Bar 22"|20|394.06|S
-Gold Chain 18"|50|372.38|S
-Gold Chain 22"|50|451.10|S
+Titanium Guide Bar 18"|20|320.02|Y
+Titanium Guide Bar 22"|20|394.06|Y
+Gold Chain 18"|50|372.38|Y
+Gold Chain 22"|50|451.10|Y
 # Hand Tools
-Snip (Tin) Cutter 10" · Industrial|60|354.90|S
+Snip (Tin) Cutter 10" · Industrial|60|354.90|Y
 Snip (Tin) Cutter 10" · Silver|60|192.66|S
 Glass Cutter Pen Type · Pro|240|179.40|Y
-18" Hand Saw for Wood · Pro|60|243.36|S
-24" Hand Saw for Concrete · Pro|24|540.01|S
+18" Hand Saw for Wood · Pro|60|243.36|Y
+24" Hand Saw for Concrete · Pro|24|540.01|Y
 Bolt Cutter 8" (200 MM) · Pro|60|162.24|Y
-6 Pcs Welding Magnet Set · Pro|20 SET|507.94|Y
-Hinged Bit 35MM (Auto Stop) · Plus|200|208.47|S
-Pruning Saw 270 MM · Eco|120|61.96|N
-Wire Twister (Steel Bar Hook) · Pro|80|-|N
+6 Pcs Welding Magnet Set · Pro|20 SET|507.94|S
+Hinged Bit 35MM (Auto Stop) · Plus|200|208.47|Y
+Pruning Saw 270 MM · Eco|120|61.96|S
+Wire Twister (Steel Bar Hook) · Pro|80|-|S
 # Wood Chisel ~ Div's Gold
-12 MM|60|162.24|Y
+12 MM|60|162.24|S
 19 MM|60|172.38|Y
-25 MM|60|179.14|Y
-32 MM|60|199.42|Y
+25 MM|60|179.14|S
+32 MM|60|199.42|S
 38 MM|60|223.08|Y
 50 MM|60|317.72|Y
 # Hand Riveter
-10.5 Inch · Pro|200|317.72|Y
+10.5 Inch · Pro|200|317.72|S
 17 Inch (Handle Type) · Pro|40|551.05|Y
 9.5 Inch · Silver|50|243.36|Y
 # Pipe Cutter
 High Quality (3-42MM) · Industrial|50|467.19|Y
 Pipe Cutter Blade (S02) · Industrial|410|136.05|Y
-Good Quality (3-42MM) · Pro|50|347.59|N
+Good Quality (3-42MM) · Pro|50|347.59|S
 Medium Quality (3-42MM) · Silver|50|290.94|Y
 Pipe Cutter Blade (A04) · Silver|500|90.67|Y
 # Flat Files T-12 ~ Div's Gold, card packing
 6"|100|114.50|Y
 8"|100|134.52|Y
 10"|50|185.38|Y
-12"|50|229.68|N
+12"|50|229.68|S
 # Flat Files T-10 ~ Div's Gold, plastic box
-6"|360|52.57|N
-8"|240|59.07|N
+6"|360|52.57|S
+8"|240|59.07|S
 10"|120|95.19|Y
 12"|60|137.82|Y
 # Half Round Files ~ Div's Gold, T-10 PVC
-10" Half Round|120|104.34|Y
+10" Half Round|120|104.34|S
 12" Half Round|60|152.91|Y
 # Multipurpose Chamfer Tool
 Portable Multipurpose Angle Grinder Plate|36|388.57|Y
-Chamfer Multipurpose Cutter|50|181.33|N
 # Router Bit Set
 12 Pcs PVC|12|916.66|Y
 12 Pcs Wooden (12B)|20|916.66|Y
@@ -661,9 +649,9 @@ Chamfer Multipurpose Cutter|50|181.33|N
 DU-10 Pad (Heavy)|200|53.33|S
 Fiber Pad|625|14.33|S
 # Velcro Pad
-Velcro Pad (M-10)|200|42.50|S
-Velcro Pad (M-14)|200|42.50|S
-Velcro Pad (M-10) Thin Pad|200|53.33|Y
+Velcro Pad (M-10)|200|42.50|Y
+Velcro Pad (M-14)|200|42.50|Y
+Velcro Pad (M-10) Thin Pad|200|53.33|S
 Velcro Pad (Hex Nut)|200|53.33|S
 ## Cutting Wheels
 # Cut Off Wheel ~ Div's Industrial
@@ -674,56 +662,56 @@ Velcro Pad (Hex Nut)|200|53.33|S
 5"X1 Green|400|27.09|Y
 7"X1.5 Green|100|64.65|Y
 10"X1.5 Black|100|106.27|Y
-10"X1.5 Brown|100|106.27|N
-12"X2 Green|40|135.80|N
+10"X1.5 Brown|100|106.27|Y
+12"X2 Green|40|135.80|S
 14"X2.5 Green|40|170.94|Y
 14"X2.5 Black|40|170.94|N
 14"X2.5 Red|40|170.94|Y
 # Cut Off Wheel ~ Div's Plus (1 Nett)
 4"X1 (2 in 1) Red + Green|800|14.62|Y
 5"X1 Green|400|27.09|Y
-12"X2 Green|40|135.80|N
-14"X2.5 (2 in 1) Red + Green|40|170.94|S
+12"X2 Green|40|135.80|S
+14"X2.5 (2 in 1) Red + Green|40|170.94|Y
 # Cut Off Wheel ~ Div's Gold (2 Nett)
 4"X1 Green|800|14.28|Y
 4"X1 Red|800|14.28|Y
 # Cut Off Wheel ~ Div's Silver (2 Nett)
 4"X1 Green|800|13.24|Y
-5"X1 Green|400|24.18|Y
+5"X1 Green|400|24.18|S
 14"X2.5 Green|40|154.32|Y
-16"X3 Black/Red|25|264.15|N
+16"X3 Black/Red|25|264.15|S
 # Cut Off Wheel ~ Div's Eco (2 Nett)
 4"X1 Green|800|11.27|Y
 4"X1 Red|800|11.27|Y
-14"X2.5 Green|40|145.07|S
+14"X2.5 Green|40|145.07|Y
 ## Grinding & DC
 # DC Wheel ~ Div's Plus
 4"X4 Brown|200|30.64|Y
-4"X6 Green|200|36.89|S
+4"X6 Green|200|36.89|Y
 5"X6 Green|100|57.73|Y
 7"X6 Green|50|120.30|Y
 # DC Wheel ~ Div's Silver
 4"X6 Green|200|32.25|Y
 # GC Wheel ~ Div's Plus
-#46|240|27.74|S
-#60|240|27.74|S
-#80|240|27.74|S
-#100|240|27.74|S
-#120|240|27.74|S
-#180|240|27.74|S
-#220|240|27.74|S
-#320|240|27.74|S
+#46|240|27.74|Y
+#60|240|27.74|Y
+#80|240|27.74|Y
+#100|240|27.74|Y
+#120|240|27.74|Y
+#180|240|27.74|Y
+#220|240|27.74|Y
+#320|240|27.74|Y
 # Felt Wheel
-4" 15MM White|200|51.36|N
+4" 15MM White|200|51.36|Y
 # Non Woven Wheel
 U5-4" 13MM Maroon|400|50.30|Y
 U5-4" 13MM Green|400|50.30|Y
-U8-4" 16MM Maroon (Div's Pro)|400|60.18|S
+U8-4" 16MM Maroon (Div's Pro)|400|60.18|Y
 # Stone Polishing Disc ~ Div's Plus
 4" #120-U8|400|64.82|Y
 4" #220-U8|400|64.82|Y
 4" #320-U8|400|64.82|Y
-4" #400-U8|400|64.82|S
+4" #400-U8|400|64.82|Y
 4" #600-U8|400|64.82|Y
 4" #800-U8|400|64.82|Y
 4" #1000-U8|400|64.82|Y
@@ -749,10 +737,10 @@ Radial 4" #320|200|35.66|Y
 4" #60|200|29.74|Y
 4" #80|200|29.74|Y
 4" #100|200|29.74|Y
-4" #120|200|29.74|N
+4" #120|200|29.74|Y
 # Flap Disc ~ Div's Eco (PVC)
-4" #60|200|27.78|S
-4" #80|200|27.78|S
+4" #60|200|27.78|Y
+4" #80|200|27.78|Y
 4" #100|200|27.78|Y
 4" #120|200|27.78|Y
 # Flap Disc ~ Div's Silver (Metal)
@@ -760,23 +748,23 @@ Radial 4" #320|200|35.66|Y
 4" #80|200|30.70|Y
 # Fiber Disc ~ Div's Plus
 5" #24|400|11.93|Y
-5" #36|800|11.93|S
-5" #60|800|11.93|S
-5" #80|800|11.93|S
-5" #100|800|11.93|S
-5" #120|800|11.93|S
+5" #36|800|11.93|Y
+5" #60|800|11.93|Y
+5" #80|800|11.93|Y
+5" #100|800|11.93|Y
+5" #120|800|11.93|Y
 # Velcro Disc ~ Div's Plus
 5" #36|1200|4.57|Y
 5" #60|1200|4.57|Y
 5" #80|1200|4.57|Y
-5" #100|1200|4.57|S
+5" #100|1200|4.57|Y
 5" #120|1200|4.57|Y
 7" #40|1000|11.14|Y
 7" #60|1000|11.14|Y
 7" #80|1000|11.14|Y
 7" #120|1000|11.14|Y
-7" #150|1000|11.14|S
-7" #180|1000|11.14|S
+7" #150|1000|11.14|Y
+7" #180|1000|11.14|Y
 7" #220|1000|11.14|Y
 7" #320|1000|11.14|Y
 # WA Wheels ~ Div's Plus
@@ -796,56 +784,54 @@ Radial 4" #320|200|35.66|Y
 5"X30|100|357.09|Y
 5"X40|200|414.39|Y
 # Thin Kerf TCT ~ Div's Plus
-Wood 4"X12|200|220.45|S
-Wood 4"X30|200|236.11|N
-Wood 4"X40|200|270.63|S
-Wood 5"X12|200|270.14|S
-Wood 5"X30|200|281.14|S
-Wood 5"X40|200|309.70|S
-Wood 6"X40|50|429.67|S
-Wood 6"X60|50|577.19|S
-Wood 7"X40|50|504.31|S
-Wood 7"X60|50|632.57|S
-Wood 8"X40|50|668.27|S
-Wood 8"X60|50|767.35|S
-Wood 10"X40|25|990.90|S
-Wood 10"X60|25|1149.90|S
-Aluminium 10"X80|25|1301.96|S
-Aluminium 10"X100|25|1493.22|N
-Aluminium 10"X120|25|1700.62|N
-Wood 12"X40|10|1306.56|S
-Wood 12"X60|10|1492.53|S
-Wood 12"X80|10|1878.95|S
-Aluminium 12"X100|10|2184.52|N
-Aluminium 12"X120|10|2417.27|N
-Wood 14"X60|10|2008.50|S
-Wood 14"X80|10|2238.80|N
-Aluminium 14"X80|10|2320.50|N
-Aluminium 14"X100|10|2594.31|N
-Aluminium 14"X120|10|2875.84|N
-# Red Series TCT ~ Div's Plus
-Wood 4"X12|100|220.45|S
-Wood 4"X30|100|236.11|S
-Wood 4"X40|100|270.63|S
-Wood 5"X12|100|270.14|S
-Wood 5"X30|100|281.14|S
-Wood 5"X40|100|309.70|S
-Wood 6"X40|50|429.67|S
-Wood 7"X40|50|504.31|S
-Wood 7"X60|50|632.57|S
-Wood 8"X40|50|668.27|S
-Wood 8"X60|50|767.27|S
-Wood 10"X40|25|990.90|S
-Wood 10"X60|25|1149.90|S
-Aluminium 10"X100|25|1493.22|N
-Aluminium 10"X120|25|1700.62|N
+Wood 4"X12|200|220.45|Y
+Wood 4"X30|200|236.11|Y
+Wood 4"X40|200|270.63|Y
+Wood 5"X12|200|270.14|Y
+Wood 5"X30|200|281.14|Y
+Wood 5"X40|200|309.70|Y
+Wood 6"X40|50|429.67|Y
+Wood 6"X60|50|577.19|Y
+Wood 7"X40|50|504.31|Y
+Wood 7"X60|50|632.57|Y
+Wood 8"X40|50|668.27|Y
+Wood 8"X60|50|767.35|Y
+Wood 10"X40|25|990.90|Y
+Wood 10"X60|25|1149.90|Y
+Aluminium 10"X80|25|1301.96|N
+Aluminium 10"X100|25|1493.22|Y
+Aluminium 10"X120|25|1700.62|Y
 Wood 12"X40|10|1306.56|N
-Wood 12"X60|10|1492.53|S
-Aluminium 12"X100|10|2184.52|N
-Aluminium 12"X120|10|2417.27|N
-Wood 14"X60|10|2008.50|S
-Aluminium 14"X100|10|2594.31|S
-Aluminium 14"X120|10|2875.84|N
+Wood 12"X60|10|1492.53|N
+Wood 12"X80|10|1878.95|Y
+Aluminium 12"X100|10|2184.52|Y
+Aluminium 12"X120|10|2417.27|Y
+Wood 14"X60|10|2008.50|Y
+Wood 14"X80|10|2238.80|Y
+Aluminium 14"X80|10|2320.50|Y
+Aluminium 14"X100|10|2594.31|Y
+Aluminium 14"X120|10|2875.84|Y
+# Red Series TCT ~ Div's Plus
+Wood 4"X30|100|236.11|N
+Wood 4"X40|100|270.63|Y
+Wood 5"X30|100|281.14|Y
+Wood 5"X40|100|309.70|Y
+Wood 6"X40|50|429.67|Y
+Wood 7"X40|50|504.31|Y
+Wood 7"X60|50|632.57|Y
+Wood 8"X40|50|668.27|Y
+Wood 8"X60|50|767.27|Y
+Wood 10"X40|25|990.90|N
+Wood 10"X60|25|1149.90|Y
+Aluminium 10"X100|25|1493.22|Y
+Aluminium 10"X120|25|1700.62|Y
+Wood 12"X40|10|1306.56|Y
+Wood 12"X60|10|1492.53|Y
+Aluminium 12"X100|10|2184.52|Y
+Aluminium 12"X120|10|2417.27|Y
+Wood 14"X60|10|2008.50|Y
+Aluminium 14"X100|10|2594.31|Y
+Aluminium 14"X120|10|2875.84|Y
 # TCT Blades ~ Div's Gold
 6"X40T|50|252.47|Y
 8"X40T|50|326.12|Y
@@ -853,27 +839,26 @@ Aluminium 14"X120|10|2875.84|N
 12"X100T|20|1157.18|Y
 14"X60T|10|1209.78|Y
 14"X100T|10|1578.01|Y
-14"X120T|10|1735.79|Y
 # TCT Blades ~ Div's Silver
-4"X30|200|89.40|S
-4"X40|200|99.19|N
+4"X30|200|89.40|Y
+4"X40|200|99.19|S
 5"X30|200|110.10|S
-5"X40|200|121.22|Y
-10"X40|20|-|N
-10"X60|20|551.05|S
-12"X40|25|-|N
+5"X40|200|121.22|S
+10"X40|20|-|S
+10"X60|20|551.05|N
+12"X40|25|-|S
 # Grass Cutter Blades ~ Div's Silver
 10"X40|50|242.46|Y
 10"X60|50|308.58|Y
 ## Diamond Blades
 # Marble Blade ~ Div's Plus
-4" 10T SEG|200|97.59|Y
+4" 10T SEG|200|97.59|N
 4" 16T|200|97.59|Y
 4" RIM|200|97.59|Y
 4" Turbo|200|97.59|Y
 4" 115X15 MM SEG|200|127.50|Y
 4" Super Thin Turbo 8MM (Hot Pressed)|200|119.27|Y
-4" Super Thin Turbo 10MM (Hot Pressed)|200|119.27|N
+4" Super Thin Turbo 10MM (Hot Pressed)|200|119.27|Y
 Ceramic 4" (U Slot)|200|109.08|Y
 4" Nano White (4 Cut Laser Type)|200|129.01|Y
 5" SEG (22.23MM Bore)|200|144.06|Y
@@ -891,10 +876,10 @@ Ring Saw Blade 16" (410MM)|10|4422.13|Y
 Ring Saw Blade Inside Teeth 16" (410MM)|10|4422.13|Y
 18" SEG|5|6515.15|Y
 3" Cup (RIM)|100|106.06|Y
-3" Cup (SEG)|100|106.06|N
+3" Cup (SEG)|100|106.06|Y
 3" Cup (Turbo)|100|106.06|Y
 4" Cup (RIM)|50|151.52|Y
-4" Cup (SEG)|50|151.52|N
+4" Cup (SEG)|50|151.52|Y
 # Marble Blade ~ Div's Eco
 4" SEG 9TX8MM (PP Pouch)|200|82.16|Y
 4" RIM (PP Pouch)|200|82.16|Y
@@ -923,7 +908,7 @@ Wall Chaser Blade 133X4.5X20MM · 108517|200|222.62|Y
 4" SEG 114X8TX15X20MM · 108519|200|156.52|Y
 4" SEG 114X8TX15X20MM · 108520|200|156.52|Y
 4" SEG 6T · 108521|200|132.22|Y
-4" Glass Blade (Green) · 108522|200|145.32|N
+4" Glass Blade (Green) · 108522|200|145.32|S
 4" CD Glass Blade · 108523|200|145.32|Y
 4.5" 114X13X20 SEG · 108524|200|156.52|Y
 4" Multipurpose 110X5MM · 108525|200|151.13|Y
@@ -935,11 +920,35 @@ Wall Chaser Blade 133X4.5X20MM · 108517|200|222.62|Y
 # Grooving Blades ~ Don & Singham
 8" Grooving 200X12X14T · Don|50|416.67|Y
 8" Grooving 200X12X14T · Singham|50|416.67|Y
+## Economic Abrasives
+# Eternal Power ~ Economy Series
+Cutting Wheel 2 Net 14"X2.5 Green|40|145.07|Y
+Cutting Wheel 2 Net 4"X1 Green|800|11.27|Y
+Flap Disc 4" #60|200|26.24|Y
+Flap Disc 4" #80|200|26.24|Y
+Flap Disc 4" #120|200|26.24|Y
+# SVID ~ Economy Series
+Cutting Wheel 14"X2.5 Green|40|145.07|Y
+Cutting Wheel 4"X1 Green|800|11.27|Y
+# Super Tough ~ Economy Series
+Cutting Wheel 2 Net 14"X2.5 Green|40|145.07|Y
+Cutting Wheel 2 Net 4"X1 Green|800|11.27|Y
+# Coofix ~ Economy Series
+Cutting Wheel 4"X1 Green|800|11.27|Y
+# Power Look ~ Economy Series
+DC Wheel 4"X6 Green|200|23.60|N
+DC Wheel 5"X6 Green|100|45.52|N
+Cutting Wheel 4"X1 Green|800|9.88|N
+Cutting Wheel 2 Net 14"X2.5 Green|25|132.72|N
+# RRR ~ Economy Series
+Cutting Wheel 4*1 (2) Green|800|9.88|Y
+Cutting Wheel 5*1 (2) Green|400|19.28|Y
 ### Power Tools
 ## Div's Industrial
 # Grinders & Cutters ~ Industrial Series
 4" Angle Grinder 1100W · DI-AG 1100|8|2651.51|Y
 4" Angle Grinder 1350W Slim · DI-AG 1350|8|2935.53|Y
+4" Angle Grinder (IG Plate) 1000W · DI-AG4-1000|8|2954.86|Y
 4" Angle Grinder 1400W · DI-AG 1400|8|3016.25|Y
 4" Angle Grinder 1500W · DI-AG 1500|8|3234.85|Y
 Die Grinder · DI-DG 1000|8|3251.98|Y
@@ -949,67 +958,71 @@ Die Grinder · DI-DG 1000|8|3251.98|Y
 4" Marble Cutter 1900W · DI-4SB-1900|4|3775.80|Y
 4" Marble Cutter 2000W · DI-SB 2000|4|4034.76|Y
 5" Marble Cutter · DI-CM5 2000|4|4794.28|Y
+5" Marble Cutter New · DI-CM5 NEW|4|4969.13|Y
 # Drills & Hammers ~ Industrial Series
 10MM Drill Machine 1000W · DI-10 D|10|2537.14|Y
 13MM Drill Machine 1200W · DI-13 IM|10|2908.20|Y
+Demolition Breaker 8 KG · DI-DH8|1|9810.50|Y
+Demolition Breaker 12 KG · DI-DH12|1|20383.50|Y
+Demolition Breaker 16 KG · DI-DH16|1|16645.50|Y
 Demolition Breaker 24KG 2400W · DI-24000|1|-|N
 Magnetic Drill Machine · DI-MDM 2-50|1|26218.50|Y
 Magnetic Drill Machine (New) · DI-MD 50|1|29272.28|Y
 Magnetic Drill Machine (New) · DI-MD 70|1|36788.57|Y
 Rotary Hammer 26MM Anti Vibration (with acc.) · DI-11|1|5536.60|Y
 Rotary Hammer 26MM · DI-RH30|5|5342.69|Y
+Rotary Hammer 3-30 · DI-RH 3-30|2|8161.80|Y
 Diamond Core Drill · DI-DCD 235|1|-|N
 Diamond Core Drill · DI-DCD 260|1|-|N
 # Saws & Others ~ Industrial Series
 Ring Saw Machine · DI-RSM16|1|40909.00|Y
 Dry Wall Sander · DI-DS 180|4|6328.58|Y
+Chopsaw 355A · DI-355A-3000|1|12440.60|Y
+Chopsaw (D Type) · DI-355 D-3200|1|12440.60|Y
 Miter Saw 10" · DI-MS 255|1|14017.71|Y
 Trimmer (New) · DI-TM-1000|8|3357.01|Y
 ## Div's Pro
 # Drill Machines ~ Div's Pro
-Electric Drill 10MM L/R 500W (DPT 10LR New) · DPT 5002|10|1409.58|S
+Electric Drill 10MM L/R 500W (DPT 10LR New) · DPT 5002|10|1409.58|Y
 13MM Impact Drill L/R 850W · DPT 5006|10|2073.28|Y
 Cordless Drill 12V with acc. · DPT 5010|10|2707.12|Y
 Cordless Drill 21V with acc. · DPT 5011|5|3784.80|Y
 # Marble & Wood Cutters ~ Div's Pro
-4" CM4SA Marble Cutter (New) · DPT 110R HY|4|3370.06|S
-4" CM4SA Marble Cutter (New) · DPT 110C HY|4|3475.95|S
+4" CM4SA Marble Cutter (New) · DPT 110R HY|4|3370.06|Y
+4" CM4SA Marble Cutter (New) · DPT 110C HY|4|3475.95|Y
 5" Marble Cutter · DPT 125 MC / DPT 5025|4|3957.69|N
 5" Wood Cutter · DPT 125 WC / DPT 5026|4|3957.69|N
 6" Marble Cutter · DPT 150MC|4|4244.25|N
-16" Slab Cutter · DPT 5030|1|19913.22|N
+16" Slab Cutter · DPT 5030|1|19913.22|Y
 # Angle Grinders ~ Div's Pro
 4" Angle Grinder PDA-100M 1250W · DPT 100M|8|2147.72|Y
-4" Angle Grinder 801 New 1200W · DPT801NHY|8|2527.98|S
+4" Angle Grinder 801 New 1200W · DPT801NHY|8|2527.98|Y
 # Chop Saws ~ Div's Pro
-Chopsaw LG355 (Big Guard) · DPT LG355B HY|1|10575.32|S
-Chopsaw Ken Type 7614NB 3000W · DPT 7614NB|1|9469.70|Y
-Chopsaw CC-14STD 2200W · DPT CC14 HY|1|9469.70|Y
+Chopsaw LG355 (Big Guard) · DPT LG355B HY|1|10575.32|Y
 # Rotary & Demolition Hammers ~ Div's Pro
 Rotary Hammer 20MM (New) · DPT 5061|5|3239.62|Y
 Rotary Hammer 22MM 3 Mode · DPT 5062|5|3696.41|Y
 Rotary Hammer 26MM · DPT 5063|5|3976.39|Y
 Rotary Hammer 26MM (28-30) New · DPT 5064|5|4777.92|Y
 Rotary Hammer 26MM (Heavy) · DPT 5065|5|4777.92|Y
-Demolition Hammer 5KG 0810B (Bolt Type) · DPT 5071|2|7373.23|S
-Demolition Hammer 5KG MT860 · DPT 5072|2|7373.23|S
-Demolition Hammer DH7000 7KG · DPT DH7000|2|8984.18|S
+Demolition Hammer 5KG 0810B (Bolt Type) · DPT 5071|2|7373.23|Y
+Demolition Hammer 5KG MT860 · DPT 5072|2|7373.23|Y
+Demolition Hammer DH7000 7KG · DPT DH7000|2|8984.18|Y
 Demolition Hammer DH-7 7KG · DPT DH-7|2|7287.32|Y
 Demolition Hammer (Max) DH8000 8KG · DPT DH8000|2|9776.11|Y
 Demolition Hammer 11E · DPT 11000|1|16286.78|Y
-Demolition Breaker (Max) 12KG · DPT DH12000|1|-|N
 # Saws, Planers & Vibrators ~ Div's Pro
 22" Electric Chainsaw 550MM · DPT ECS22"|2|7964.92|Y
 Gasoline 22" Chainsaw 62CC (Metal) · DPT MC600|2|9072.90|Y
-Planner (Sencan Type) · DPT 82 EP|4|4334.09|S
-Jigsaw 65MM · DPT 65J|5|3872.50|S
+Planner (Sencan Type) · DPT 82 EP|4|4334.09|Y
+Jigsaw 65MM · DPT 65J|5|3872.50|Y
 Jigsaw 85MM · DPT 85J|5|4499.90|Y
 Vibrator 50MM without Shaft (PVC) · DPT 50VIB|10|2850.15|Y
-Vibrator 50MM without Shaft (Metal) · DPT 5122|10|2905.20|Y
+Vibrator 50MM without Shaft (Metal) · DPT 5122|10|2905.20|N
 Handy Vibrator without Shaft (Heavy PVC) · DPT 5124|10|3052.06|Y
 Vibrator Stand Type with 4 Mtr Shaft · DPT 200VIB|2|13594.88|Y
 # Sanders, Compressors & Pumps ~ Div's Pro
-Plaster Wet Sander · DPT 200VIB|2|5652.73|S
+Plaster Wet Sander · DPT 200VIB|2|5652.73|Y
 Dry Wall Sander · DPT 5130|4|5432.33|Y
 Air Compressor 30 Ltr Oil Free (Copper) · DPT 3039|1|10984.85|Y
 Air Compressor 50 Ltr Oil Free (Copper) · DPT 3037|1|13996.74|Y
@@ -1018,7 +1031,7 @@ Agriculture / Sprayer Pump 100 · DPT 5157|1|9646.42|Y
 ## Div's Gold
 # Grinders & Marble Cutters ~ Div's Gold
 4" Angle Grinder 801 · DG 101|8|1780.95|Y
-4" Angle Grinder · DG 102|8|1858.80|S
+4" Angle Grinder · DG 102|8|1858.80|Y
 4" Angle Grinder (9913) · DG 103|8|1780.95|Y
 4" Angle Grinder (801) · DG 803-1|8|1555.20|Y
 4" Angle Grinder (803) · DG 803|8|1555.20|Y
@@ -1028,30 +1041,107 @@ Agriculture / Sprayer Pump 100 · DPT 5157|1|9646.42|Y
 4" CM4SB Marble Cutter New (HY) · DG 115|4|2597.10|Y
 Marble Cutter CM5 5" New (HY) 2000W · DG 116|4|3073.21|Y
 # Hammers & Drills ~ Div's Gold
-Demolition Hammer 11E · DG 128|1|14870.37|N
-Rotary Hammer 20MM · DG 151|5|2478.40|N
-Rotary Hammer 20MM New · DG 179|5|2571.33|N
-Rotary Hammer 26MM · DG 152|5|3407.80|N
-Rotary Hammer 26MM Metal Head · DG 153|5|3655.63|N
-Rotary Hammer 26MM · DG 182|5|3748.57|N
+Demolition Hammer 11E · DG 128|1|14870.37|Y
+Rotary Hammer 20MM · DG 151|5|2478.40|Y
+Rotary Hammer 20MM New · DG 179|5|2571.33|Y
+Rotary Hammer 26MM · DG 152|5|3407.80|Y
+Rotary Hammer 26MM Metal Head · DG 153|5|3655.63|Y
+Rotary Hammer 26MM · DG 182|5|3748.57|Y
 Cordless Drill 12V with acc. · DG 132|10|1932.52|N
-13MM Tool Kit · DG 13IM KIT|5|2675.36|Y
-Electric Mixture · DG 137|6|2741.73|Y
+Electric Mixture · DG 137|6|2741.73|N
 # Saws & Cutters ~ Div's Gold
-Mitersaw 10" (1040 Type) · DG 141|1|11865.32|S
-Mitersaw 10" (Belt Type) · DG 142|1|9293.98|S
-16" Electric Chainsaw 5016 · DG 144|2|4770.91|N
+Mitersaw 10" (1040 Type) · DG 141|1|11865.32|Y
+Mitersaw 10" (Belt Type) · DG 142|1|9293.98|Y
+16" Electric Chainsaw 5016 · DG 144|2|4770.91|Y
 Gasoline Chainsaw 22" 62CC · DG 6200|2|7501.05|Y
-Jigsaw 70MM · DG 161|10|2311.86|N
-Tile Cutter Manual 24" · DG184|3|3854.18|S
-Tile Cutter Manual 48" · DG 186|2|6387.50|S
+Tile Cutter Manual 24" · DG184|3|3854.18|Y
+Tile Cutter Manual 48" · DG 186|2|6387.50|N
 # Cleaning & Others ~ Div's Gold
-Vacuum Cleaner 20 Ltr · DG 20VC|1|4189.14|S
-Vacuum Cleaner 25 Ltr · DG 25VC|1|4545.45|S
+Vacuum Cleaner 20 Ltr · DG 20VC|1|4189.14|Y
+Vacuum Cleaner 25 Ltr · DG 25VC|1|4545.45|Y
 Vacuum Cleaner 35 Ltr · DG 35VC|1|6480.01|Y
 Heat Gun · DG 163|10|1161.28|Y
 Compressor 30 Ltr Oil · RR 30 AC|1|10606.06|Y
-Leaf Collector 21V · DG 188|8|7399.95|S
+Leaf Collector 21V · DG 188|8|7399.95|N
+## Div's Economic
+# Super Tough ~ Economy Series
+Drill Machine 10MM (2310) · ST 2003|10|882.96|Y
+Drill Machine 10MM L/R · ST 2004|10|1006.85|Y
+Drill Machine 10MM L/R New · ST 2005|10|1124.58|N
+Impact Drill 13IM (13MM) · ST 2008|10|1250.60|Y
+Drill 13MM (13RE) · ST 2009|10|1388.18|Y
+Angle Grinder 6-100 (4") · ST 2013|8|1238.92|N
+Angle Grinder 801 (4") · ST 2015|8|1238.92|Y
+7" Polisher M/C · ST 2021|4|2820.27|Y
+Paint Mixer · ST 2023|5|2402.92|Y
+Blower Mini Strom · ST 2028|5|1063.00|Y
+Blower (China Type) · ST 2029|8|866.88|N
+Marble Cutter CM4SA · ST 2033|6|1840.20|Y
+Marble Cutter CM4SB · ST 2035|6|1840.20|Y
+Planner 1900B · ST 2039|6|2323.50|Y
+Gasoline Chainsaw 22" 58CC · ST 2052|2|6186.13|Y
+Gasoline Chainsaw 22" 62CC · ST 2054|2|6348.07|Y
+Rotary Hammer 20MM · ST 2053|5|-|N
+Rotary Hammer 26MM · ST 2055|5|3041.67|Y
+Demolition Hammer PH65 · ST 2059|1|8478.36|Y
+Demolition Hammer 0835 · ST 2062|2|4410.42|Y
+Demolition Hammer 0810 (5KG) · ST 2061|2|3923.75|Y
+Vibrator Handy (1.5) Mtr · ST 2063|10|2144.93|N
+Chopsaw LT (Metal Body) · ST 2065|1|6846.57|Y
+Compressor Aluminium 50 Ltr (with 2 Valve) · ST 2069|1|10346.18|S
+Compressor Aluminium 50 Ltr Oil Free (with 2 Valve) · ST 2071|1|11103.20|S
+16" Electric Chainsaw 4016 · ST 2081|4|3886.94|Y
+16" Electric Chainsaw China Type · ST 2082|4|3406.67|Y
+# Eternal Power ~ Economy Series
+Drill 10MM · EP2310|10|882.96|N
+Drill 10MM L/R · EP 10A|10|1006.85|Y
+13MM Drill (13B) · EP 13IM|10|1250.60|Y
+Drill 13MM (13RE) · EP-13RE|10|1388.18|Y
+Rotary Hammer 20MM · EP 133|5|-|N
+Rotary Hammer 26MM · EP 135|5|3041.67|Y
+Demolition Hammer PH65 (EP-101) · EP 65A|1|8478.36|Y
+Demolition Hammer 0810 · EP 0810|2|3923.75|N
+Angle Grinder 801 (4") · EP 801|10|1238.92|Y
+CM4SA Marble Cutter · EP SA|6|1840.20|N
+CM4SB Marble Cutter · EP SB|6|1840.20|N
+Paint Mixer · 1 CTN|5|2402.92|N
+Vibrator Handy (1.5) Mtr · 1 CTN|10|2144.93|N
+# SVID ~ Economy Series
+Drill Machine 10MM · SV 2310|10|882.96|N
+Drill Machine 10MM (L/R) · SV 10L/R|10|1006.85|N
+Impact Drill 13MM · SV 13IM|10|1250.60|N
+Drill 13MM (13RE) · SV 13RE|10|1388.18|Y
+Angle Grinder 6-100 (4") · SV 6-100|10|1238.92|Y
+Angle Grinder 801 (4") · SV 801|10|1238.92|Y
+5" Angle Grinder 125MM · SV AG-5|4|2492.75|Y
+CM4SA Marble Cutter · SV 4SA|6|1840.20|N
+CM4SB Marble Cutter · SV 4SB|6|1840.20|N
+Demolition Hammer 0810 (5KG) · SV 0810|2|3923.75|N
+Demolition Hammer PH65 · SV 65A|1|8478.30|Y
+Rotary Hammer 20MM · SV 20H|5|-|N
+Rotary Hammer 26MM · SV 26H|5|3041.67|N
+Vibrator Handy (1.5) Mtr · 1 CTN|10|2144.93|N
+Paint Mixer · 1 CTN|5|2402.92|Y
+# D ~ Economy Series
+Drill Machine 10MM (2310) · D 2310|10|882.96|N
+Drill Machine 10MM (L/R) · D 10L/R|10|1006.85|Y
+Screw Driver (10B) · D 10B|10|1149.35|N
+Drill 13MM (13RE) · D-13RE|10|1388.18|Y
+Angle Grinder 6-100 (4") · D 6-100|10|1238.92|Y
+Angle Grinder 801 (4") · D 801|10|1238.92|Y
+Angle Grinder 125MM (5") · D-AG 5|4|2492.75|Y
+CM4SA Marble Cutter · D SA|6|1840.20|N
+CM4SB Marble Cutter · D SB|6|1840.20|Y
+Rotary Hammer 20MM · D 20H|5|-|N
+Rotary Hammer 26MM · D 26H|5|3041.67|Y
+Demolition Hammer 0810 (5KG) · D 0810|2|3923.75|Y
+Demolition Hammer PH65 · D PH65|1|8478.36|Y
+Paint Mixer · D MIX|5|2402.92|Y
+# Power Look ~ Economy Series
+Drill 13MM (13RE) · PL 13RE|10|1388.18|Y
+# RRR ~ Economy Series
+Rotary Hammer 20MM · D 20H|5|2311.67|Y
+Rotary Hammer 26MM · D 26H|5|3041.67|Y
 ### Spare Parts
 ## Armatures
 # Pro Armature ~ Bosch type
@@ -1105,7 +1195,7 @@ KPT5502|50|685.61|Y
 9816/9817-Skil|20|741.28|Y
 # Pro Armature ~ Others
 KR554RE|30|523.26|Y
-AEG6-100|30|545.07|Y
+AEG6-100|30|545.07|N
 HP1321R|30|545.07|Y
 FF-03-26|20|675.88|Y
 CTC 125|20|697.68|Y
@@ -1115,75 +1205,76 @@ CM5 WC/MC|20|833.34|Y
 90MM Core Drill|20|1250.01|Y
 4" Angle Grinder DPT 900W|50|617.99|Y
 4" Angle Grinder DPT 950W|50|643.75|Y
+4" Angle Grinder DPT 1000W|50|617.99|Y
 4" Angle Grinder DPT 1029|50|587.89|N
-22" Electric Chain Saw|20|2234.39|N
+22" Electric Chain Saw|20|2234.39|Y
 16" Slab Cutter|10|3840.17|Y
 # Gold Armature ~ Div's Gold
 6-100|50|334.33|Y
-2310|50|324.62|S
-801|50|378.88|S
-Screw Driver|50|359.88|S
-2-20|50|417.08|S
-2-26|50|417.08|S
-6.5MM|30|448.78|S
+2310|50|324.62|Y
+801|50|378.88|Y
+Screw Driver|50|359.88|Y
+2-20|50|417.08|Y
+2-26|50|417.08|Y
+6.5MM|30|448.78|Y
 PD100D|50|-|N
-EBC40|50|415.09|S
-13RE|50|438.93|S
-1900B|50|423.04|S
+EBC40|50|415.09|Y
+13RE|50|438.93|Y
+1900B|50|423.04|Y
 G10SS|50|417.08|Y
-G10SS2|50|417.08|S
+G10SS2|50|417.08|N
 MT90|50|-|N
 PD100M|50|-|N
-DU10|50|460.78|S
-Die Grinder (02-25)|30|482.30|S
-2510|50|462.76|S
-CM4SA|30|552.14|S
+DU10|50|460.78|Y
+Die Grinder (02-25)|30|482.30|Y
+2510|50|462.76|Y
+CM4SA|30|552.14|Y
 MT60|50|-|N
 9523NB|50|500.01|Y
-3703|50|500.50|S
-CM4SB|30|579.94|S
-35-1|30|516.39|S
+3703|50|500.50|Y
+CM4SB|30|579.94|Y
+35-1|30|516.39|Y
 Hangbo 26MM|50|500.01|Y
-03-26|30|613.70|S
-0810|30|599.80|S
-FF-160|30|586.87|S
-MT410|30|586.56|S
-C7|30|675.27|S
-CM6|30|641.51|S
-G15SA2|30|642.98|S
-SIS-FF-125B|30|730.88|S
+03-26|30|613.70|Y
+0810|30|599.80|Y
+FF-160|30|586.87|Y
+MT410|30|586.56|Y
+C7|30|675.27|Y
+CM6|30|641.51|Y
+G15SA2|30|642.98|Y
+SIS-FF-125B|30|730.88|Y
 CTC125|30|646.32|Y
-CM5 (New)|30|665.34|S
-CM5 (Old)|30|665.34|S
+CM5 (New)|30|665.34|Y
+CM5 (Old)|30|665.34|Y
 GDC120|30|726.30|Y
 GEX-150|30|626.15|Y
 CM5 (Pro)|30|-|N
 16" Chainsaw (China) 4016 Small|18|1098.24|Y
-GBH388|12|953.33|S
-4016|12|1188.40|S
+GBH388|12|953.33|Y
+4016|12|1188.40|Y
 PH65A|12|1232.08|Y
-5016|12|1219.56|S
-GCO200|12|1285.54|S
+5016|12|1219.56|Y
+GCO200|12|1285.54|Y
 355D|12|-|N
-4107|12|1222.92|S
-DW871|12|1459.78|S
-GCO2000|12|1285.54|S
-LG355|12|1285.54|S
-PH65SC|12|1316.40|S
-28700|12|1475.67|S
-28710|12|1351.23|S
-28720|12|1327.70|S
-28730|12|1523.34|S
-CC14SF|12|1497.52|S
-CC14STD|12|1351.23|S
-G18SE2|12|1400.20|S
+4107|12|1222.92|Y
+DW871|12|1459.78|Y
+GCO2000|12|1285.54|Y
+LG355|12|1285.54|Y
+PH65SC|12|1316.40|Y
+28700|12|1475.67|Y
+28710|12|1351.23|Y
+28720|12|1327.70|Y
+28730|12|1523.34|Y
+CC14SF|12|1497.52|Y
+CC14STD|12|1351.23|Y
+G18SE2|12|1400.20|N
 G18SH2|12|1400.20|N
-KPT5791|12|1372.40|S
-CC14STA|12|1481.63|S
-7614NB|12|1523.34|S
-11E|12|1759.68|S
+KPT5791|12|1372.40|Y
+CC14STA|12|1481.63|Y
+7614NB|12|1523.34|Y
+11E|12|1759.68|N
 300-A (Stand Vibrator)|18|-|N
-3612 BR Router|18|1590.87|S
+3612 BR Router|18|1590.87|Y
 China Chopsaw (8 Teeth)|24|1433.23|Y
 ## Stators
 # Pro Stator
@@ -1197,24 +1288,24 @@ CC14SF|18|1249.99|Y
 4" Angle Grinder DPT 1029|40|514.99|N
 # Gold Stator ~ Div's Gold
 6-100|40|314.71|Y
-2-20|40|353.53|S
-2-26|40|353.53|S
-801|40|367.43|S
-CM4SA|30|464.75|S
+2-20|40|353.53|Y
+2-26|40|353.53|Y
+801|40|367.43|N
+CM4SA|30|464.75|N
 CM4SB|30|-|N
-G15SA2|30|579.94|S
+G15SA2|30|579.94|Y
 2510|40|-|N
 0810|30|-|N
 C7|32|-|N
-CM5 (New)|30|592.67|S
-CM5 (Pro)|30|668.43|S
-PH65A|12|901.69|S
+CM5 (New)|30|592.67|N
+CM5 (Pro)|30|668.43|N
+PH65A|12|901.69|Y
 DW871|12|1383.30|N
-PD100M|50|415.09|S
+PD100M|50|415.09|Y
 DU10|50|-|N
-LG355|12|1168.23|S
-GCO200|12|1213.14|S
-7614NB|12|1374.38|S
+LG355|12|1168.23|N
+GCO200|12|1213.14|Y
+7614NB|12|1374.38|Y
 PH65SC|12|-|N
 28730|12|-|N
 5016|12|1146.28|Y
@@ -1229,7 +1320,6 @@ Gear Housing Set with Accessories|80|190.91|Y
 Body (Motor Housing)|60|149.58|Y
 Hammer Set|360|54.97|Y
 Knob with O-Ring|800|23.63|Y
-Needle Bearing HK0608|10000|9.18|N
 Nose Cap (7 pcs)|400|36.60|Y
 O-Ring|4800|14.34|Y
 Piston|500|66.19|Y
@@ -1241,9 +1331,9 @@ Small Gear|800|32.87|Y
 Taper Bearing (Swash)|400|101.82|Y
 Toothed Shaft|500|46.14|Y
 Short Wire|LOOSE|6.93|Y
-Long Wire|LOOSE|6.93|N
+Long Wire|LOOSE|6.93|Y
 # 2-26 Spares
-Bearing 699|2000|23.77|N
+Bearing 699|2000|23.77|Y
 Bearing Retainer|2400|13.11|Y
 Black Head (Gear Housing)|80|135.23|Y
 Brush Holder Complete Set|300|127.27|Y
@@ -1283,12 +1373,13 @@ Carbon Holder Set|200|124.81|Y
 Connecting Rod|50|299.28|Y
 Counter Gear / Small Gear|80|157.53|Y
 Cover Seal (Paper)|1200|12.73|Y
-Crank Shaft|60|313.95|Y
 Cylinder (Glass)|20|596.59|Y
 Final Gear (Big)|50|220.50|Y
 Cylinder Case (Neck) Light|18|1177.23|Y
-Neck (Cylinder Case) PH65A (1.680)|10|-|N
+Neck (Cylinder Case) PH65A (1.680)|10|1570.83|Y
 Neck (Cylinder Case) PH65 SC (1.95)|10|1648.08|Y
+Body for PH65A|16|1554.62|Y
+IC+GC Plate for PH65A|25|809.70|Y
 Piston|200|103.95|Y
 Piston L Ring|1000|48.83|Y
 Piston Pin|1000|23.07|Y
@@ -1302,12 +1393,12 @@ Carbon Holder with Cap|900|68.16|Y
 Complete Tool Holder Set (Barrel, 9 parts)|10|1130.77|Y
 Connecting Rod|200|116.57|Y
 Crank Shaft|320|92.27|Y
-Iron Metal Rod|300|71.59|Y
-Oil Cap (Grease Cap) with O-Ring|300|28.36|N
+Iron Metal Rod|300|71.59|N
+Oil Cap (Grease Cap) with O-Ring|300|28.36|Y
 Piston|400|75.61|Y
 Piston O-Ring|1500|33.07|Y
 Impact Bolt|50|85.92|Y
-Switch Handle Set|100|63.01|N
+Switch Handle Set|100|63.01|Y
 Switch Support|1200|20.47|Y
 Rubber Side Handle|100|119.32|Y
 Tool Holder with O-Ring|20|472.52|Y
@@ -1317,18 +1408,18 @@ Striker|100|80.97|Y
 Quarter Pin|2000|3.24|Y
 Gear Box|50|542.50|Y
 # 0835 Spares ~ 7KG
-Complete Cylinder for JY0835|10|1460.82|Y
+Complete Cylinder for JY0835|10|1460.82|N
 Complete Cylinder for 0835 (DPT 455)|10|1522.24|Y
 Neck 0835 (DPT 455)|50|453.44|Y
-Gear Housing Set|20|775.34|S
-Switch Handle|100|98.67|S
+Gear Housing Set|20|775.34|Y
+Switch Handle|100|98.67|N
 Toolholder|32|529.22|Y
-Side Handle|50|163.86|Y
-Body (Motor Housing) China Type|50|214.77|Y
-Gear Housing Set China Model|20|696.31|S
+Side Handle|50|163.86|N
+Body (Motor Housing) China Type|50|214.77|N
+Gear Housing Set China Model|20|696.31|Y
 O-Ring|1000|33.07|Y
-Piston|1000|98.67|Y
-Piston + O-Ring + Pin|250|130.21|S
+Piston|1000|98.67|N
+Piston + O-Ring + Pin|250|130.21|Y
 Tool Holder China Type Small (JS 7KG)|20|529.22|Y
 # 0845 Spares
 Toolholder SDS Type|32|717.15|Y
@@ -1338,14 +1429,14 @@ Toolholder A Type (6 Bolt, Short)|27|668.18|Y
 # 11E Spares
 Bearing Cover|60|141.77|Y
 Black Needle Bearing (4902)|LOOSE|72.46|Y
-Brush Holder Set (8 parts)|108|316.13|N
-Fan|200|126.01|N
+Brush Holder Set (8 parts)|108|316.13|Y
+Fan|200|126.01|Y
 Front / Side Handle Set|50|342.05|Y
 Gear Box (Mechanism) Set|10|1512.04|Y
 Gear Z 60|60|425.26|Y
 Hammer Pipe|50|397.73|Y
 Needle Roller Assembly|2010|56.69|Y
-Nose Cap (11 pcs)|80|504.03|N
+Nose Cap (11 pcs)|80|504.03|Y
 Packing Seal (Namda, Grey Fley)|2400|20.49|Y
 Shift Plate + Bearing|360|60.46|Y
 Speed Governor|100|556.82|Y
@@ -1362,13 +1453,9 @@ Buffer Ring (12 no.)|LOOSE|75.17|Y
 Crankshaft (30 no.)|200|160.69|Y
 Cylinder Case Neck (20 no.)|25|477.28|Y
 Cylinder Ring (17 no.)|LOOSE|13.13|Y
-Gear Box (35 no.)|25|-|N
 Hammer Washer (11 no.)|LOOSE|49.32|Y
-IG Plate (40 no.)|100|201.46|Y
-Iron Hammer Bullet (10 no.)|100|186.14|N
 Oil Cover (28 no.)|LOOSE|39.77|Y
 O-Ring 22.5*5 (14 no.)|LOOSE|2.78|Y
-O-Ring (23 no.)|LOOSE|40.57|N
 O-Ring for Oil Cover (29 no.)|LOOSE|12.72|Y
 O-Ring 41.5*2 (15 no.)|LOOSE|2.78|Y
 Punch Hammer (22 no.)|50|25.85|Y
@@ -1376,16 +1463,13 @@ Switch Handle (59-60 no.)|LOOSE|302.27|Y
 Screw Set M8*35 (18 no.)|LOOSE|12.73|Y
 # 8KG & 12KG Spares ~ DPT 8000 / DPT 12000
 Front Nose Cap Set (1-6 no.) · 8KG|25|270.45|Y
-Armature (62 no.) · 12KG|LOOSE|-|N
+Armature (62 no.) · 12KG|LOOSE|2440.09|Y
 Crank Shaft (54 no.) · 12KG|25|1021.37|Y
 # 21KG Spares ~ DPT 21000
-Armature (70 no.)|10|2124.99|Y
-Auxiliary / Front Handle Set (102-110 no.)|20|445.45|Y
+Armature (70 no.)|10|-|N
 Complete Front Cover Set (1-7 no.)|8|1638.64|Y
-Crank Shaft (92 no.)|50|357.96|Y
 Fan Nut (82 no.)|200|15.90|Y
 Iron Hammer Bullet (13 no.)|70|397.73|Y
-Neck Cylinder Case (21 no.)|LOOSE|-|N
 Motor Housing Body (28 no.)|8|2227.27|Y
 Split Sleeve (16 no.)|70|238.64|Y
 Stop Lever Set (1-7 no.)|60|298.74|Y
@@ -1395,44 +1479,46 @@ Cover Plate / Switch Handle Plate (44 no.)|LOOSE|262.50|Y
 Screw M10X65 (8 no.)|LOOSE|29.61|Y
 Spring (10 no.)|LOOSE|38.12|Y
 Washer (9 no.)|LOOSE|3.70|Y
+Front Cover (GC Plate) (37 no.)|30|731.82|Y
 ## Cutter & Grinder Spares
 # Pro CM5 WC/MC Spares
 Base Plate (Big)|50|274.04|N
-Base Plate (Small)|50|219.23|Y
+Base Plate (Small)|50|219.23|N
 Body with Jali|50|461.36|Y
 Head|100|-|N
 Lever Bolt|500|57.28|Y
 # AB Washer
-For 6-100|500|19.73|S
-For CM4SA|400|21.14|S
+For 6-100|500|19.73|Y
+For CM4SA|400|21.14|Y
 For CM4SA Metal (Heavy)|400|44.93|Y
 For CM5 Old / MT 410|200|21.72|Y
 # Body & Gear Box
-Body Complete Set for 6-100|50|191.29|Y
-Body Complete Set for 801|50|191.29|S
+Body Complete Set for 6-100|50|191.29|N
+Body Complete Set for 801|50|191.29|Y
 Body Complete Set for CM4SA (Green)|25|198.86|N
 Body Complete Set for CM4SA (Red)|25|198.86|Y
 Body for CM4SB (Green)|50|198.86|N
-Body for CM4SB (Red)|50|198.86|Y
-Gear Box for 6-100|100|226.30|N
-Gear Box for 801|100|226.30|S
+Body for CM4SB (Red)|50|198.86|N
+Gear Box for 6-100|100|226.30|Y
+Gear Box for 801|100|226.30|Y
 Gear Box for 9913/9523/850W|100|299.88|Y
 Gear Box for PDA100D|100|237.30|Y
 # Angle Grinder Spares
-Bearing Flange for GWS 6-100|250|53.45|N
+Bearing Flange for GWS 6-100|250|53.45|Y
 Lock Set for 801|5000|9.46|Y
 Needle Bearing HK 0810 (801 Gear Box)|10000|9.46|Y
 Spindle for 801|500|38.75|Y
 Lock Set for 6-100|2000|9.46|N
 Spindle for 6-100|500|38.75|Y
-L-Nut for CM4SA|2000|3.58|S
+L-Nut for CM4SA|2000|3.58|Y
 ## Gears & Switches
 # Pro Gear
-Gear for 0810|100|89.71|Y
-Gear for 2-20 (2 pcs)|300|83.43|N
-Gear for 2-26 (2 pcs)|200|108.18|Y
+Gear for 0810|100|89.71|N
+Gear for 2-20 (2 pcs)|300|83.43|Y
+Gear for 2-26 (2 pcs)|200|108.18|N
 Gear for 6-100|200|100.82|Y
-Gear for 801|200|100.82|Y
+Straight Gear for 6-100|200|145.74|Y
+Gear for 801|200|100.82|N
 Gear for CM4SA|400|67.72|Y
 Gear for CM4SB|300|68.95|Y
 Gear for PDA100M|200|100.23|Y
@@ -1451,56 +1537,55 @@ Gear for DPT 1100W|200|238.64|Y
 Gear for DPT 1029|200|208.38|Y
 # Pro Switch
 For 0810|250|93.18|Y
-For 0835 (7KG)|250|84.20|S
-For 11E|250|131.09|S
+For 11E|250|131.09|N
 For 13RE|250|131.09|Y
-For 2-20 (Variable)|480|119.17|S
-For 2-26 (Variable)|200|140.01|S
-For 5016|200|114.20|S
-For 6-100 (High Quality)|500|39.72|S
-For 6-100 (Normal Quality)|500|31.79|S
+For 2-20 (Variable)|480|119.17|Y
+For 2-26 (Variable)|200|140.01|Y
+For 5016|200|114.20|Y
+For 6-100 (High Quality)|500|39.72|Y
+For 6-100 (Normal Quality)|500|31.79|Y
 For 6.5MM|200|165.99|Y
-For 801|1000|27.09|Y
-For CM4SA|500|20.35|S
-For CM4SA (Dust Proof)|500|39.73|S
-For FF-10A|250|102.46|S
+For 801|1000|27.09|N
+For CM4SA|500|20.35|Y
+For CM4SA (Dust Proof)|500|39.73|Y
+For FF-10A|250|102.46|Y
 For FF160|400|99.72|Y
 For G15SA2|250|93.18|Y
-For GCO200|250|119.13|S
+For GCO200|250|119.13|Y
 For LG355|250|96.43|Y
-For PH65A|250|93.18|Y
+For PH65A|250|93.18|N
 For Screw Driver (10B) Old Type|250|108.92|Y
 For Screw Driver (10C)|250|142.45|Y
 Left/Right for 2-20|400|158.41|Y
 For 12V|250|200.08|N
 For 21V|250|200.08|N
-For 5682|250|87.78|S
+For 5682|250|87.78|Y
 For 10MM (L/R) New|300|137.15|Y
-For CM5 WC/MC|250|94.63|S
-For MT60|250|105.49|S
+For CM5 WC/MC|250|94.63|Y
+For MT60|250|105.49|Y
 For 28700|250|162.84|Y
 For 28710|250|165.85|Y
 For GCO2000|250|136.42|Y
 For 6510|250|120.13|N
 ## Carbon Brush
 # Carbon Brush
-For 0810|1000|13.74|S
+For 0810|1000|13.74|Y
 For 2-20|1000|9.91|Y
 For 2-26|1000|9.91|Y
 For 2310|1000|8.35|Y
-For 2510|1000|8.35|S
-For 6-100|1000|9.91|S
+For 2510|1000|8.35|Y
+For 6-100|1000|9.91|Y
 For GCO 200|1000|19.66|N
 For 28700|1000|17.02|Y
 For Trimmer|1000|13.49|Y
 For Paint Mixture|1000|13.49|Y
 For Vibrator (35-1)|1000|9.91|Y
-For CM4SA|1000|13.49|S
+For CM4SA|1000|13.49|Y
 For DU-10|1000|9.91|N
-For DW801|1000|9.91|S
+For DW801|1000|9.91|N
 For 11E|1000|19.66|N
-For PH65A|1000|18.37|S
-For LG355|1000|16.70|S
+For PH65A|1000|18.37|Y
+For LG355|1000|16.70|Y
 For MT410|1000|13.49|Y
 For PDA100D|1000|9.91|Y
 For 20-180|1000|19.66|Y
@@ -1509,21 +1594,21 @@ For PD 100 M|1000|9.91|Y
 ## Other Spares
 # Vibrator Shaft & Mixture Rod
 Shaft 1 Mtr 35MM|10|739.78|N
-Shaft 1.5 Mtr 35MM|10|835.22|N
+Shaft 1.5 Mtr 35MM|10|835.22|Y
 Shaft 2 Mtr 35MM|5|1113.64|N
 Shaft 3 Mtr 35MM|2/4|1392.05|Y
-50MM Shaft 1 Mtr|5|1909.09|Y
-50MM Shaft 1.5 Mtr|5|2028.42|N
+50MM Shaft 1 Mtr|5|1909.09|N
+50MM Shaft 1.5 Mtr|5|2028.42|Y
 50MM Shaft 3 Mtr|2|2704.55|Y
 50MM Shaft 4 Mtr|2|3420.46|Y
-50MM Shaft 4 Mtr (Stand Type)|1|3420.46|S
-Spiral Mixture Rod 60 CM|20|361.85|Y
+50MM Shaft 4 Mtr (Stand Type)|1|3420.46|Y
+Spiral Mixture Rod 60 CM|20|361.85|N
 # Cordless Drill Spares
 Motor 12V|100|300.51|N
 Motor 21V|100|315.01|N
 Charger 12V|300|143.18|N
-Charger 21V|300|214.77|Y
-Battery 12V|50|340.42|S
+Charger 21V|300|214.77|N
+Battery 12V|50|340.42|Y
 Battery 20V (Dewalt type)|50|-|N
 Battery 20V (Makita type)|50|-|N
 # Pressure Washer & Misc

@@ -25,7 +25,7 @@ Open it once with internet so the offline copy is saved.
 Edit `index.html` on GitHub (pencil icon). The price data sits near the top of the script in the block that starts with `const RAW =`.
 Each line is: `item | carton pcs | price | stock` where stock is `Y` (in stock), `S` (arriving soon) or `N` (out).
 Lines starting with `#` are subcategories, `##` are categories, `###` are the three tabs.
-After changing prices, open `sw.js` and change `divs-rate-book-v1` to `divs-rate-book-v2` so phones pick up the new copy.
+After changing prices, open `sw.js` and change `divs-rate-book-v2` to `divs-rate-book-v3` (and so on) so phones pick up the new copy.
 
 ## Things to know
 - Your saved discounts live in each browser and are tied to the web address. A new address starts with no discounts.
