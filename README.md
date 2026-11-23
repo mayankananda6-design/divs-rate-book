@@ -6,6 +6,7 @@ Everything is static files, so it hosts for free on GitHub Pages.
 ## Files
 - `index.html` – the whole app, including all prices
 - `manifest.webmanifest`, `icon-*.png`, `apple-touch-icon.png` – home-screen icon and name
+- `images/` – product photos (20 files: `t0-t3` are small thumbnails, `p0-p15` are the larger photos shown when you tap an item)
 - `sw.js` – lets the app open offline after the first visit
 - `.nojekyll` – tells GitHub to serve the files as they are
 
@@ -13,7 +14,7 @@ Everything is static files, so it hosts for free on GitHub Pages.
 1. Sign in at github.com and click **New repository**. Name it, for example, `rate-book`.
    Choose **Public** (free accounts can only use Pages with public repos).
 2. On the empty repo page, click **uploading an existing file**.
-3. Unzip this folder, select **all files inside it** (including `.nojekyll`; if your file picker hides it, skip it, the app still works) and drag them in. Click **Commit changes**.
+3. Unzip this folder, select **all files inside it** (including `.nojekyll`; if your file picker hides it, skip it, the app still works) and drag them in. **Include the `images` folder** (drag the folder itself; on a computer this works in Chrome, Edge and Safari). On a phone, GitHub cannot upload folders, so use a computer for this step. Click **Commit changes**.
 4. Go to **Settings > Pages**. Under **Build and deployment**, set Source to **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
 5. Wait a minute. Your link will be `https://YOUR-USERNAME.github.io/rate-book/`.
 
